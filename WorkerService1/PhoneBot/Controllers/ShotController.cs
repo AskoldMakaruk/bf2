@@ -1,11 +1,13 @@
 ﻿using System.Net;
+using BF2;
 using RtspClientSharp;
 using RtspClientSharp.RawFrames.Audio;
 using RtspClientSharp.RawFrames.Video;
+using Telegram.Bot.Types;
 
 namespace WorkerService1.PhoneBot;
 
-public class ShotController : ViewController
+public class ShotController : BotController
 {
     public const string IP = "192.168.3.3:8080";
 

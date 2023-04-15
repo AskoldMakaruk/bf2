@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using Microsoft.Extensions.Hosting;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
 public class HostedBot : IHostedService

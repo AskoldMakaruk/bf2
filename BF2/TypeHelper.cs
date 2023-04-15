@@ -1,4 +1,5 @@
 using System.Reflection;
+using BF2;
 
 namespace WorkerService1;
 
@@ -10,7 +11,7 @@ public static class TypeHelper
 {
     public static bool IsEndpointAttribute(this Type type) => type.IsAssignableTo(typeof(IEndpointAttribute));
 
-    public static IEnumerable<MethodInfo> GetMethods(this ViewController controller)
+    public static IEnumerable<MethodInfo> GetMethods(this BotController controller)
     {
         var methods = controller.GetType()
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
@@ -18,7 +19,7 @@ public static class TypeHelper
         return methods;
     }
 
-    public static IEnumerable<Endpoint> GetEndpoints(this ViewController controller)
+    public static IEnumerable<Endpoint> GetEndpoints(this BotController controller)
     {
         foreach (var method in controller.GetMethods())
         {
@@ -62,7 +63,7 @@ public static class TypeHelper
     public static List<Type> GetControllerTypes()
     {
         var allTypes = GetTypes();
-        var res = allTypes.Where(p => p.IsAssignableTo(typeof(ViewController)) && !p.IsAbstract)
+        var res = allTypes.Where(p => p.IsAssignableTo(typeof(BotController)) && !p.IsAbstract)
             .ToList();
         return res;
     }

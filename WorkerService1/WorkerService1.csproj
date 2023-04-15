@@ -13,4 +13,8 @@
         <PackageReference Include="RtspClientSharp" Version="1.3.3" />
         <PackageReference Include="Telegram.Bot" Version="18.0.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BF2\BF2.csproj" />
+    </ItemGroup>
 </Project>

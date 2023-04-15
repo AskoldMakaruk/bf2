@@ -1,4 +1,5 @@
 using System.Reflection;
+using BF2;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -31,7 +32,7 @@ public class Endpoint
             .ToArray();
 
         var instance = serviceProvider.GetService(_method.DeclaringType);
-        if (instance is not ViewController controller)
+        if (instance is not BotController controller)
         {
             return;
         }
