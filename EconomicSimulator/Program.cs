@@ -1,11 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-using System.Collections;
-using EconomicSimulator;
+﻿using EconomicSimulator;
 using EconomicSimulator.Types;
 using Geolocation;
 
+Console.WriteLine(GeoCalculator.GetDistance(1.001, 1, 1, 1, distanceUnit: DistanceUnit.Meters));
 var worker = new Worker()
 {
     Id = Guid.NewGuid(),
@@ -14,26 +11,22 @@ var worker = new Worker()
     Inventory = new Inventory(),
     Needs = new List<WorkerNeed>()
     {
-        new WorkerNeed()
-        {
-            Progress = new Progress(0),
-            Type = "thirst"
-        }
+        "thirst", "hunger"
     },
     TotalExperience = 1,
-    WorkHours = 0
+    Balance = 0
 };
 
 var well1 = new Facility()
 {
-    Id = new Guid("BDD1A533-546E-4677-B718-2711D4ED95EE"),
+    Id = Guid.NewGuid(),
     Inventory = new Inventory(),
     Location = new Location(1, 1),
-    Name = "Factory1",
+    Name = "Water Well 1",
     Type = "water_well",
     Prices = new List<SellingPrice>()
     {
-        ("water", 10)
+        ("water", 1)
     },
     JobQueue =
     {
@@ -46,9 +39,33 @@ var well1 = new Facility()
     }
 };
 
+var farm1 = new Facility()
+{
+    Id = Guid.NewGuid(),
+    Inventory = new Inventory(),
+    Location = new Location(1, 1.0001),
+    Name = "Farm 1",
+    Type = "ground_farm",
+    Prices = new List<SellingPrice>()
+    {
+        ("wheat", 3)
+    },
+    JobQueue =
+    {
+        new Job()
+        {
+            Id = Guid.NewGuid(),
+            Type = JobTypes.GrowWheat,
+            CurrentProgress = 0
+        }
+    },
+    Workers = new List<Worker>()
+};
+
 var facilities = new[]
 {
-    well1
+    well1,
+    farm1
 };
 
 var map = new Map()
@@ -78,6 +95,15 @@ public class Location
     public double Longitude { get; set; }
 
     public static implicit operator Coordinate(Location location) => new Coordinate(location.Latitude, location.Longitude);
+    public static implicit operator Location(Coordinate coordinate) => new Location(coordinate.Latitude, coordinate.Longitude);
+}
+
+public enum Compass
+{
+    North,
+    South,
+    East,
+    West
 }
 
 public enum WorkerStatus
@@ -88,28 +114,30 @@ public enum WorkerStatus
     SatisfyNeed
 }
 
-public record Progress(double Value)
+public record Progress(decimal Value)
 {
-    public double Value { get; set; } = Value;
-    public static implicit operator Progress(double value) => new Progress(value);
-    public static implicit operator double(Progress value) => value.Value;
+    public decimal Value { get; set; } = Value;
+    public static implicit operator Progress(decimal value) => new Progress(value);
+    public static implicit operator decimal(Progress value) => value.Value;
 }
 
-public readonly record struct WorkHours(double Value)
+public readonly record struct WorkHours(decimal Value)
 {
-    public static implicit operator WorkHours(double value) => new WorkHours(value);
-    public static implicit operator double(WorkHours value) => value.Value;
+    public static implicit operator WorkHours(decimal value) => new WorkHours(value);
+    public static implicit operator decimal(WorkHours value) => value.Value;
 }
 
 public record SellingPrice(ItemType Item, WorkHours Price)
 {
-    public static implicit operator SellingPrice((string, double) tuple) => new(ItemTypes.Get(tuple.Item1), new WorkHours(tuple.Item2));
+    public static implicit operator SellingPrice((string, decimal) tuple) => new(ItemTypes.Get(tuple.Item1), new WorkHours(tuple.Item2));
 }
 
 public readonly record struct IOItem(ItemType Item, int Count)
 {
     public static implicit operator IOItem((string, int ) tuple) => new IOItem(ItemTypes.Get(tuple.Item1), tuple.Item2);
     public static implicit operator IOItem(KeyValuePair<ItemType, int> tuple) => new IOItem(tuple.Key, tuple.Value);
+
+    public decimal GetPrice(SellingPrice price) => Count * price.Price;
 }
 
 public class Item
@@ -128,4 +156,14 @@ public class Job
     public Guid Id { get; set; }
     public JobType Type { get; set; }
     public WorkHours CurrentProgress { get; set; }
+
+    public bool IsProducing(ItemType type)
+    {
+        return Type.Outputs.Any(a => a.Item == type);
+    }
+
+    public IEnumerable<ItemRequirement> GetRequirements()
+    {
+        return Type.Inputs.Select(a => new ItemRequirement(a.Item, a.Count));
+    }
 }

@@ -11,6 +11,8 @@ public readonly record struct ItemType(string Name, string Description, string T
         };
     }
 
+    public static implicit operator ItemType(string name) => ItemTypes.Get(name);
+
     public bool Equals(ItemType? other)
     {
         return string.Equals(this.TypeName, other?.TypeName, StringComparison.InvariantCultureIgnoreCase);

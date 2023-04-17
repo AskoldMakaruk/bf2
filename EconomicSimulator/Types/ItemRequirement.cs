@@ -20,9 +20,36 @@ public class ItemRequirement
 
     public static implicit operator ItemRequirement((string, int ) tuple) => new ItemRequirement(ItemTypes.Get(tuple.Item1), tuple.Item2);
     public static implicit operator ItemRequirement((HashTag, int ) tuple) => new ItemRequirement(tuple.Item1, tuple.Item2);
+
+
+    public ItemRequirement Or(ItemRequirement other)
+    {
+        // todo requirement substitution
+        return null;
+    }
+
     public HashTag? HashTag { get; }
     public ItemType? Type { get; }
     public int Count { get; }
+
+    public IEnumerable<ItemType> Matches(IEnumerable<ItemType> itemTypes)
+    {
+        if (HashTag is { } tag)
+        {
+            var hashTagTypes = tag.GetHashtagItems().ToList();
+            foreach (var itemType in itemTypes.Where(itemType => hashTagTypes.Contains(itemType)))
+            {
+                yield return itemType;
+            }
+
+            yield break;
+        }
+
+        if (Type is { } type && itemTypes.Contains(type))
+        {
+            yield return type;
+        }
+    }
 
     public bool Matches(ItemType itemType)
     {
@@ -40,19 +67,18 @@ public class ItemRequirement
         return false;
     }
 
-    public bool CanBeFullfiled(Inventory inventory)
+    public IEnumerable<FulfilmentVariant> GetProposals(Inventory inventory)
     {
-        if (HashTag is { } tag)
-        {
-            var hashTagTypes = tag.GetHashtagItems();
-            return inventory.Items.Where(a => hashTagTypes.Contains(a.Key)).Any(a => a.Value >= Count);
-        }
+        var matches = Matches(inventory.GetItemsTypes(Count)).ToList();
+        yield return new FulfilmentVariant(this, matches.Select(a => new IOItem(a, inventory[a])).ToList());
+    }
+}
 
-        if (Type is { } type)
-        {
-            return inventory[type] >= Count;
-        }
 
-        return false;
+public readonly record struct FulfilmentVariant(ItemRequirement Requirement, List<IOItem> Proposal)
+{
+    public decimal GetCost(SellingPrice price)
+    {
+        return Proposal.Sum(a => a.GetPrice(price));
     }
 }

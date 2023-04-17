@@ -1,7 +1,9 @@
-﻿public readonly record struct JobType(string Name,
+﻿using EconomicSimulator.Types;
+
+public readonly record struct JobType(string Name,
     string Description,
     string TypeName,
-    double WorkHoursNeeded,
+    decimal WorkHoursNeeded,
     int MinWorkers,
     int MaxWorkers,
     IEnumerable<IOItem> Inputs,

@@ -3,8 +3,8 @@
 public readonly record struct WorkerNeedType(string Name,
     string Description,
     string TypeName,
-    double ProgressPerItem,
-    List<ItemRequirement> Requirements)
+    decimal ProgressPerItem,
+    ItemRequirements Requirements)
 {
     public static implicit operator WorkerNeedType(string name) => WorkerNeedTypes.Get(name);
 }

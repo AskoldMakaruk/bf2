@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using EconomicSimulator.Interfaces;
 using EconomicSimulator.Types;
 using Geolocation;
 
@@ -11,29 +12,35 @@ public class Map
     {
         foreach (var worker in Workers)
         {
-            foreach (var need in worker.Needs)
-            {
-                need.Progress.Value += 0.01;
-
-                if (need.IsNeeded() && worker.Status == WorkerStatus.Idle)
-                {
-                    worker.Status = WorkerStatus.SatisfyNeed;
-                }
-            }
+            worker.ProcessNeeds();
 
             foreach (var requirement in worker.GetRequirements())
             {
                 if (GetClosestFacilityWithRequirement(worker.Location, requirement) is not { } facilityNear) continue;
-                if (!(facilityNear.GetPrice(requirement) <= worker.WorkHours)) continue;
-                var hours = worker.WorkHours;
-                if (facilityNear.Buy(requirement, ref hours) is not { } item) continue;
-                worker.Inventory.Add(item);
-                worker.WorkHours = hours;
-                worker.Consume();
-                if (!worker.NeedsSomething())
+                if (facilityNear.CanProduce(requirement) is { Value: true } answer)
                 {
-                    worker.Status = WorkerStatus.Idle;
+                    worker.Deliverys.Add(new DeliveryRequirement(facilityNear, answer.Requirements.Requirements));
                 }
+
+                ITrading me = worker;
+                ITrading trader = facilityNear;
+                if (me.TryBuyFrom(trader, requirement))
+                {
+                    Console.WriteLine("happy purcashe");
+                }
+            }
+
+            foreach (var delivery in worker.Deliverys)
+            {
+                foreach (var requirement in delivery.GetSatisfiedBy(worker.Inventory))
+                {
+                }
+            }
+
+            worker.Consume();
+            if (!worker.NeedsSomething())
+            {
+                worker.Status = WorkerStatus.Idle;
             }
 
             if (worker.Status == WorkerStatus.SatisfyNeed)
@@ -83,7 +90,7 @@ public class Map
         report.AppendLine("Workers:");
         foreach (var worker in Workers)
         {
-            report.AppendLine($"  {worker.Name} - {worker.Status} - {worker.TotalExperience} - {worker.WorkHours} - {string.Join(",", worker.Needs.Select(a => a.Type.Name + " " + a.Progress.Value))}");
+            report.AppendLine($"  {worker.Name} - {worker.Status} - {worker.TotalExperience} - {worker.Balance} - {string.Join(",", worker.Needs.Select(a => a.Type.Name + " " + a.Progress.Value))}");
             report.AppendLine($"  Інвентар:");
             foreach (var item in worker.Inventory.Items)
             {
@@ -108,6 +115,6 @@ public class Map
     {
         var facilities = GetFacilitiesNear(location);
         return facilities.OrderBy(a => GeoCalculator.GetDistance(a.Location, location, distanceUnit: DistanceUnit.Meters))
-            .FirstOrDefault(a => itemRequirement.CanBeFullfiled(a.Inventory));
+            .FirstOrDefault(a => itemRequirement.GetProposals(a.Inventory).Any());
     }
 }

@@ -13,9 +13,19 @@ public static class FacilityTypes
         }
     };
 
+    public static readonly FacilityType GroundFarm = new FacilityType()
+    {
+        Name = "Ферма",
+        Description = "робить їжу",
+        Jobs = new List<JobType>()
+        {
+        },
+        TypeName = "ground_farm"
+    };
+
     private static readonly IReadOnlyCollection<FacilityType> _facilityTypes = new[]
     {
-        Well
+        Well, GroundFarm
     };
 
     public static FacilityType Get(string name)

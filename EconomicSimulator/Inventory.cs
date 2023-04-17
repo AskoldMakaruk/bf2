@@ -4,6 +4,9 @@ public class Inventory
 {
     public Dictionary<ItemType, int> Items { get; set; } = new();
 
+    public IEnumerable<IOItem> GetIoItems() => Items.Select(a => new IOItem(a.Key, a.Value));
+    public IEnumerable<ItemType> GetItemsTypes(int minCount = 0) => Items.Where(a => a.Value > minCount).Select(a => a.Key);
+
     public int this[ItemType type]
     {
         get => Items.TryGetValue(type, out var value) ? value : 0;
@@ -45,8 +48,9 @@ public class Inventory
         return false;
     }
 
-    public bool TryRemoveItem(ItemType item, int count)
+    public bool TryRemoveItem(IOItem ioitem)
     {
+        var (item, count) = ioitem;
         if (!HasItem(item)) return false;
         if (Items[item] < count) return false;
         Items[item] -= count;
