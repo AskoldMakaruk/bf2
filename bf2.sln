@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EconomicSimulator", "Econom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BF2", "BF2\BF2.csproj", "{8DBF8D70-BF5B-41BB-ADE0-33D068F721B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedLaba", "DistributedLaba\DistributedLaba.csproj", "{C1A5D38F-0C6A-44BC-BA5E-1B9B30F154ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{8DBF8D70-BF5B-41BB-ADE0-33D068F721B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DBF8D70-BF5B-41BB-ADE0-33D068F721B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DBF8D70-BF5B-41BB-ADE0-33D068F721B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A5D38F-0C6A-44BC-BA5E-1B9B30F154ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A5D38F-0C6A-44BC-BA5E-1B9B30F154ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A5D38F-0C6A-44BC-BA5E-1B9B30F154ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A5D38F-0C6A-44BC-BA5E-1B9B30F154ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
