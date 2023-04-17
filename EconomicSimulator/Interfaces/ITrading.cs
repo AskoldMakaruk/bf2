@@ -11,7 +11,7 @@ public interface ITrading
 
     public int GetCount(ItemType type)
     {
-        var count = Inventory[type];
+        var count = (Inventory as IManyItems)[type];
         return count;
     }
 
@@ -42,7 +42,7 @@ public interface ITrading
 
     public bool Sell(IOItem item, WorkHours price)
     {
-        if (!(GetPrice(item) >= price) || !Inventory.TryRemoveItem(item)) return false;
+        if (GetPrice(item) < price || !Inventory.TryRemoveItem(item)) return false;
         Balance += price;
         return true;
     }
@@ -55,7 +55,7 @@ public interface ITrading
 
     public bool TryBuyFrom(ITrading another, ItemRequirement requirements)
     {
-        var proposalsList = requirements.GetProposals(another.Inventory);
+        var proposalsList = requirements.GetProposals(another.Inventory).ToList();
         return TryBuyFrom(another, proposalsList);
     }
 
@@ -66,7 +66,7 @@ public interface ITrading
             var cheaper = proposals.Proposal.OrderBy(a =>
                     a.GetPrice(another.Prices.FirstOrDefault(x => x.Item == a.Item)))
                 .FirstOrDefault();
-            if (another.GetPrice(cheaper.Item) is { } price && price <= Balance && another.Sell(cheaper, price))
+            if (cheaper != default && another.GetPrice(cheaper.Item) is { } price && price <= Balance && another.Sell(cheaper, price))
             {
                 Balance -= price;
                 Inventory.Add(cheaper);

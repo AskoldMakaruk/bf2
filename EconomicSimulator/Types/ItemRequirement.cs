@@ -67,10 +67,14 @@ public class ItemRequirement
         return false;
     }
 
-    public IEnumerable<FulfilmentVariant> GetProposals(Inventory inventory)
+    public IEnumerable<FulfilmentVariant> GetProposals(IManyItems inventory)
     {
-        var matches = Matches(inventory.GetItemsTypes(Count)).ToList();
-        yield return new FulfilmentVariant(this, matches.Select(a => new IOItem(a, inventory[a])).ToList());
+        var items = inventory.GetItemsTypes(Count).ToList();
+        var matches = Matches(items).ToList();
+        if (matches.Any())
+        {
+            yield return new FulfilmentVariant(this, matches.Select(a => new IOItem(a, Math.Min(Count, inventory[a]))).ToList());
+        }
     }
 }
 

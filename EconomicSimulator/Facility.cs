@@ -1,4 +1,6 @@
-﻿using EconomicSimulator.Interfaces;
+﻿using System.Runtime.InteropServices.ComTypes;
+using EconomicSimulator;
+using EconomicSimulator.Interfaces;
 using EconomicSimulator.Types;
 
 public class Facility : ITrading
@@ -11,40 +13,99 @@ public class Facility : ITrading
     public WorkHours Balance { get; set; }
     public List<SellingPrice> Prices { get; set; }
 
-    public List<Job> JobQueue { get; } = new List<Job>();
-    public List<Worker> Workers { get; set; } = new();
+    public List<JobType> JobTypes { get; set; } = new();
+    private List<Job> JobQueue { get; } = new();
+    private List<JobPost> JobPosts { get; } = new();
 
-    public void QueueWorker(Worker worker)
+    public List<Worker> Workers { get; set; } = new();
+    public IEnumerable<Worker> FreeWorkers => Workers.Where(w => JobQueue.All(q => !q.Workers.Contains(w)));
+
+    public void QueueWorker(Worker worker, JobPost post)
     {
         Workers.Add(worker);
+        var job = JobQueue.FirstOrDefault(a => a.Type == post.Type) ?? JobQueue.MaxBy(a => a.GetLeftToMaxWorkers());
+        job?.TryAddWorker(worker);
+
+        var jobPost = JobPosts.FirstOrDefault(a => a.Type == post.Type);
+        JobPosts.Remove(jobPost);
+        AddPost(post.Type);
     }
 
-    public void ProcessWorkers()
+    private void AddPost(JobType type)
     {
-        //restart completed jobs
+        JobPosts.Add(new JobPost(this, type, type.MaxWorkers - FreeWorkers.Count()));
+    }
+
+    public IEnumerable<JobPost> GetJobPosts()
+    {
+        return JobPosts.Where(a => a.Slots > 0);
+    }
+
+    public void AddRandomJobPost()
+    {
+        var jobType = JobTypes.RandomShuffle().FirstOrDefault();
+        AddPost(jobType);
+    }
+
+
+    private void CollectCompleted()
+    {
         var completedJobs = JobQueue.Where(j => j.CurrentProgress >= j.Type.WorkHoursNeeded).ToList();
         foreach (var job in completedJobs)
         {
-            job.CurrentProgress = 0;
             foreach (var (item, count) in job.Type.Outputs)
             {
                 Inventory.Add(new(item, count));
             }
+
+            JobQueue.Remove(job);
+        }
+    }
+
+    public bool TryStartJob(JobType type)
+    {
+        if (JobQueue.Count >= Type.ConcurrentJobLimit)
+        {
+            return false;
         }
 
-        if (Workers.Count <= 0) return;
-        Workers.RemoveAll(a => a.Status != WorkerStatus.Working);
-        foreach (var worker in Workers)
+        var freeWorkers = FreeWorkers.ToList();
+        if (freeWorkers.Count < type.MinWorkers)
         {
-            worker.TotalExperience++;
-            worker.Balance = new WorkHours(worker.Balance + 1);
-            var job = JobQueue.SkipWhile(j => j.CurrentProgress > j.Type.WorkHoursNeeded).FirstOrDefault();
-            if (job == null)
-            {
-                continue;
-            }
+            return false;
+        }
 
-            job.CurrentProgress += 1;
+        var job = new Job(type)
+        {
+            Workers = freeWorkers.Take(type.MinWorkers).ToList()
+        };
+        JobQueue.Add(job);
+        return true;
+    }
+
+
+    public void ProcessJobs()
+    {
+        CollectCompleted();
+        foreach (var jobPost in JobPosts.Where(a => a.Type.MinWorkers >= Workers.Count).ToList())
+        {
+            if (TryStartJob(jobPost.Type))
+            {
+                JobPosts.Remove(jobPost);
+            }
+        }
+
+        if (JobPosts.Count + JobQueue.Count < Type.ConcurrentJobLimit)
+        {
+            AddRandomJobPost();
+        }
+        // todo add workers quitting if dissatisfied
+        // Workers.RemoveAll(a => a.Status != WorkerStatus.Working);
+
+
+        foreach (var job in JobQueue)
+        {
+            job.Process();
         }
     }
 
@@ -55,7 +116,7 @@ public class Facility : ITrading
 
     public IEnumerable<ItemType> GetProducibleItems()
     {
-        return JobQueue.SelectMany(a => a.Type.Outputs).Select(a => a.Item);
+        return JobTypes.SelectMany(a => a.Outputs).Select(a => a.Item);
     }
 
     public CanProduceAnswer CanProduce(ItemRequirement itemNeededItem)

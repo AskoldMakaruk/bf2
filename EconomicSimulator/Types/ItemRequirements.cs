@@ -1,3 +1,5 @@
+using EconomicSimulator;
+
 public class ItemRequirements
 {
     public ItemRequirements(params ItemRequirement[] requirements)
@@ -20,17 +22,17 @@ public class ItemRequirements
     //     _requirements.RemoveAll(a => a.GetProposals(inventory));
     // }
 
-    public IEnumerable<ItemRequirement> GetSatisfiedBy(Inventory inventory)
+    public IEnumerable<ItemRequirement> GetSatisfiedBy(IManyItems inventory)
     {
         return _requirements.Where(a => a.GetProposals(inventory).Any(x => x.Proposal.Any()));
     }
 
-    public IEnumerable<FulfilmentVariant> GetProposals(Inventory inventory)
+    public IEnumerable<FulfilmentVariant> GetProposals(IManyItems inventory)
     {
         return _requirements.SelectMany(a => a.GetProposals(inventory));
     }
 
-    public bool CanBeSatisfied(Inventory inventory)
+    public bool CanBeSatisfied(IManyItems inventory)
     {
         return GetSatisfiedBy(inventory).Any();
     }

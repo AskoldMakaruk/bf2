@@ -10,7 +10,8 @@ public static class FacilityTypes
         Jobs = new List<JobType>()
         {
             "collect_water_w_bucket"
-        }
+        },
+        ConcurrentJobLimit = 2
     };
 
     public static readonly FacilityType GroundFarm = new FacilityType()
@@ -19,8 +20,10 @@ public static class FacilityTypes
         Description = "робить їжу",
         Jobs = new List<JobType>()
         {
+            JobTypes.GrowWheat
         },
-        TypeName = "ground_farm"
+        TypeName = "ground_farm",
+        ConcurrentJobLimit = 5
     };
 
     private static readonly IReadOnlyCollection<FacilityType> _facilityTypes = new[]

@@ -1,12 +1,17 @@
 ﻿using System.Text;
+using EconomicSimulator;
 using EconomicSimulator.Interfaces;
 using EconomicSimulator.Types;
 using Geolocation;
+
+
+public readonly record struct JobPost(Facility Facility, JobType Type, int Slots);
 
 public class Map
 {
     public List<Facility> Facilities { get; set; }
     public List<Worker> Workers { get; set; }
+    private IEnumerable<JobPost> PreviousJobs = Array.Empty<JobPost>();
 
     public void ProcessWorkers()
     {
@@ -43,22 +48,28 @@ public class Map
                 worker.Status = WorkerStatus.Idle;
             }
 
-            if (worker.Status == WorkerStatus.SatisfyNeed)
+            if (worker.Status == WorkerStatus.SeekingWork)
             {
-                var producerFacilityNear = GetProducerNear(worker.Location, worker.GetRequirements());
-
-                if (producerFacilityNear != null)
+                var jobPost = GetJobPost(new ItemRequirements(worker.GetRequirements()));
+                if (jobPost != null)
                 {
                     worker.Status = WorkerStatus.Working;
-                    producerFacilityNear.QueueWorker(worker);
+                    jobPost.Value.Facility.QueueWorker(worker, jobPost.Value);
                 }
-                else
-                {
-                    worker.Status = WorkerStatus.SeekingWork;
-                }
+            }
+
+            if (worker.Status == WorkerStatus.SatisfyNeed)
+            {
+                worker.Status = WorkerStatus.SeekingWork;
             }
         }
     }
+
+    private JobPost? GetJobPost(ItemRequirements requirements)
+    {
+        return PreviousJobs.FirstOrDefault(a => requirements.CanBeSatisfied(new ManyItems(a.Type.Outputs)));
+    }
+
 
     private Facility? GetProducerNear(Location workerLocation, IEnumerable<ItemRequirement> items)
     {
@@ -67,10 +78,17 @@ public class Map
 
     public void ProcessFacilities()
     {
+        var posts = new LinkedList<JobPost>();
         foreach (var facility in Facilities)
         {
-            facility.ProcessWorkers();
+            facility.ProcessJobs();
+            foreach (var post in facility.GetJobPosts())
+            {
+                posts.AddLast(post);
+            }
         }
+
+        PreviousJobs = posts;
     }
 
     private Facility? GetProducerNear(Location workerLocation, ItemType itemNeededItem)
@@ -108,7 +126,7 @@ public class Map
 
     public IEnumerable<ItemType> ProducedNear(Location location)
     {
-        return GetFacilitiesNear(location).SelectMany(a => a.JobQueue.SelectMany(a => a.Type.Outputs.Select(a => a.Item)));
+        return GetFacilitiesNear(location).SelectMany(a => a.GetProducibleItems());
     }
 
     public Facility? GetClosestFacilityWithRequirement(Location location, ItemRequirement itemRequirement)

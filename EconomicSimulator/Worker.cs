@@ -1,4 +1,5 @@
-﻿using EconomicSimulator.Interfaces;
+﻿using EconomicSimulator;
+using EconomicSimulator.Interfaces;
 
 public class Worker : ITrading
 {

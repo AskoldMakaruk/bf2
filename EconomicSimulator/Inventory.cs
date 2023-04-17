@@ -1,11 +1,52 @@
-﻿using EconomicSimulator.Types;
+﻿using System.Collections;
+using EconomicSimulator.Types;
 
-public class Inventory
+namespace EconomicSimulator;
+
+public interface IManyItems : IEnumerable<IOItem>
 {
-    public Dictionary<ItemType, int> Items { get; set; } = new();
+    public IDictionary<ItemType, int> Items { get; }
+
+    public IEnumerable<IOItem> GetItems()
+    {
+        return GetIoItems();
+    }
 
     public IEnumerable<IOItem> GetIoItems() => Items.Select(a => new IOItem(a.Key, a.Value));
     public IEnumerable<ItemType> GetItemsTypes(int minCount = 0) => Items.Where(a => a.Value > minCount).Select(a => a.Key);
+
+    IEnumerator<IOItem> IEnumerable<IOItem>.GetEnumerator()
+    {
+        return GetItems().GetEnumerator();
+    }
+
+    public int this[ItemType type]
+    {
+        get => Items.TryGetValue(type, out var value) ? value : 0;
+        set => Items[type] = value;
+    }
+}
+
+public class ManyItems : IManyItems
+{
+    public IDictionary<ItemType, int> Items { get; }
+
+    public IEnumerator GetEnumerator()
+    {
+        return (this as IManyItems).GetEnumerator();
+    }
+
+    public ManyItems(IEnumerable<IOItem> items)
+    {
+        Items = items.ToDictionary(a => a.Item, a => a.Count);
+    }
+
+    public static implicit operator ManyItems(List<IOItem> items) => new(items);
+}
+
+public class Inventory : IManyItems
+{
+    public IDictionary<ItemType, int> Items { get; set; } = new Dictionary<ItemType, int>();
 
     public int this[ItemType type]
     {
@@ -61,5 +102,11 @@ public class Inventory
     {
         Items.TryAdd(item.Item, 0);
         Items[item.Item] += item.Count;
+    }
+
+
+    public IEnumerator GetEnumerator()
+    {
+        return (this as IManyItems).GetItems().GetEnumerator();
     }
 }
