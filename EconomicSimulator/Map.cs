@@ -21,12 +21,12 @@ public class Map
                 }
             }
 
-            foreach (var itemNeeded in worker.GetNeededItems())
+            foreach (var requirement in worker.GetRequirements())
             {
-                if (GetClosestFacilityWithItem(worker.Location, itemNeeded.Item) is not { } facilityNear) continue;
-                if (!(facilityNear.GetPrice(itemNeeded.Item) <= worker.WorkHours)) continue;
+                if (GetClosestFacilityWithRequirement(worker.Location, requirement) is not { } facilityNear) continue;
+                if (!(facilityNear.GetPrice(requirement) <= worker.WorkHours)) continue;
                 var hours = worker.WorkHours;
-                if (facilityNear.Buy(itemNeeded.Item, itemNeeded.Count, ref hours) is not { } item) continue;
+                if (facilityNear.Buy(requirement, ref hours) is not { } item) continue;
                 worker.Inventory.Add(item);
                 worker.WorkHours = hours;
                 worker.Consume();
@@ -38,7 +38,7 @@ public class Map
 
             if (worker.Status == WorkerStatus.SatisfyNeed)
             {
-                var producerFacilityNear = GetProducerNear(worker.Location, worker.GetNeededItems());
+                var producerFacilityNear = GetProducerNear(worker.Location, worker.GetRequirements());
 
                 if (producerFacilityNear != null)
                 {
@@ -53,9 +53,9 @@ public class Map
         }
     }
 
-    private Facility? GetProducerNear(Location workerLocation, IEnumerable<IOItem> items)
+    private Facility? GetProducerNear(Location workerLocation, IEnumerable<ItemRequirement> items)
     {
-        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => items.Any(i => a.CanProduce(i.Item)));
+        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetProducibleItems().Any(type => items.Any(a => a.Matches(type))));
     }
 
     public void ProcessFacilities()
@@ -99,10 +99,15 @@ public class Map
         return Facilities.Where(a => GeoCalculator.GetDistance(a.Location, location, distanceUnit: DistanceUnit.Meters) < 5000).ToList();
     }
 
-    public Facility? GetClosestFacilityWithItem(Location location, ItemType itemType)
+    public IEnumerable<ItemType> ProducedNear(Location location)
+    {
+        return GetFacilitiesNear(location).SelectMany(a => a.JobQueue.SelectMany(a => a.Type.Outputs.Select(a => a.Item)));
+    }
+
+    public Facility? GetClosestFacilityWithRequirement(Location location, ItemRequirement itemRequirement)
     {
         var facilities = GetFacilitiesNear(location);
         return facilities.OrderBy(a => GeoCalculator.GetDistance(a.Location, location, distanceUnit: DistanceUnit.Meters))
-            .FirstOrDefault(a => a.Inventory.HasItem(itemType));
+            .FirstOrDefault(a => itemRequirement.CanBeFullfiled(a.Inventory));
     }
 }

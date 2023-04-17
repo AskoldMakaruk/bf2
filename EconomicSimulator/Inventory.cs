@@ -21,6 +21,30 @@ public class Inventory
         return Items.Any(a => a.Key == itemType);
     }
 
+    public bool TryRemoveItem(Func<ItemType, bool> predicate, int count)
+    {
+        foreach (var item in Items.Where(a => predicate(a.Key)))
+        {
+            if (item.Value < count)
+            {
+                count -= item.Value;
+                Items[item.Key] = 0;
+            }
+            else
+            {
+                Items[item.Key] -= count;
+                return true;
+            }
+
+            if (count == 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool TryRemoveItem(ItemType item, int count)
     {
         if (!HasItem(item)) return false;

@@ -1,4 +1,5 @@
-﻿using EconomicSimulator.Types;
+﻿using System.Data;
+using EconomicSimulator.Types;
 
 public class Worker
 {
@@ -17,19 +18,9 @@ public class Worker
         return Needs.Any(a => a.IsNeeded());
     }
 
-    public ItemType? GetNeededItemType()
+    public IEnumerable<ItemRequirement> GetRequirements()
     {
-        return GetNeededItem()?.Item;
-    }
-
-    public IEnumerable<IOItem> GetNeededItems()
-    {
-        return Needs.Where(a => a.IsNeeded()).Select(a => a.Type.Items.FirstOrDefault());
-    }
-
-    public IOItem? GetNeededItem()
-    {
-        return Needs.FirstOrDefault(a => a.IsNeeded())?.Type.Items.FirstOrDefault();
+        return Needs.Where(a => a.IsNeeded()).SelectMany(a => a.Type.Requirements);
     }
 
     public void Consume()

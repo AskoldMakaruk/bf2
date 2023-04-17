@@ -52,20 +52,37 @@ public class Facility
         return count;
     }
 
-    public double? GetPrice(ItemType itemNeeded)
+    public int GetCount(ItemRequirement type)
     {
-        return Prices.FirstOrDefault(a => a.Item == itemNeeded)?.Price;
+        var count = Inventory.Items.Where(a => type.Matches(a.Key)).Sum(a => a.Value);
+        return count;
     }
 
-    public IOItem? Buy(ItemType type, int buyCount, ref WorkHours hours)
+    public IOItem GetReq(ItemRequirement requirement)
     {
-        var count = GetCount(type);
+        return Inventory.Items.FirstOrDefault(a => requirement.Matches(a.Key));
+    }
+
+    // todo maybe base price on some percentage of worker productivity so workers would
+    // be able to buy like 80% what they've produced back
+    // but soloing the economy is inefficient and workers should strive to work for more 
+    // paying job
+    public double? GetPrice(ItemRequirement itemNeeded)
+    {
+        return Prices.FirstOrDefault(a => itemNeeded.Matches(a.Item))?.Price;
+    }
+
+    public IOItem? Buy(ItemRequirement type, ref WorkHours hours)
+    {
+        var itemToBuy = GetReq(type);
+
+        var count = GetCount(itemToBuy.Item);
         if (GetPrice(type) is not { } price)
         {
             return null;
         }
 
-        var maxToBuy = Math.Min((int)Math.Floor(hours / price), buyCount);
+        var maxToBuy = Math.Min((int)Math.Floor(hours / price), type.Count);
         if (maxToBuy == 0)
         {
             return null;
@@ -78,9 +95,12 @@ public class Facility
 
         var hoursNeeded = price * maxToBuy;
         hours -= hoursNeeded;
-        if (Inventory.TryRemoveItem(type, maxToBuy))
+        if (Inventory.TryRemoveItem(itemToBuy.Item, maxToBuy))
         {
-            return new IOItem(type, maxToBuy);
+            return itemToBuy with
+            {
+                Count = maxToBuy
+            };
         }
 
         return null;
@@ -89,5 +109,10 @@ public class Facility
     public bool CanProduce(ItemType itemNeededItem)
     {
         return JobQueue.Any(a => a.Type.Outputs.Any(b => b.Item == itemNeededItem));
+    }
+
+    public IEnumerable<ItemType> GetProducibleItems()
+    {
+        return JobQueue.SelectMany(a => a.Type.Outputs).Select(a => a.Item);
     }
 }

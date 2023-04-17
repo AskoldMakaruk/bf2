@@ -8,12 +8,13 @@
     {
         var result = false;
 
-        while (Progress - Type.ProgressPerItem > 0 && CanSatisfy(inventory))
+        while (IsNeeded() && Type.Requirements.All(c => c.CanBeFullfiled(inventory)))
         {
             result = true;
-            foreach (var item in Type.Items.Where(item => !inventory.TryRemoveItem(item.Item, item.Count)))
+            // todo take all items at once
+            foreach (var item in Type.Requirements.Where(item => !inventory.TryRemoveItem(item.Matches, item.Count)))
             {
-                Console.WriteLine($"cannot remove item {item.Item}");
+                Console.WriteLine($"cannot remove item {item.Type}");
                 continue;
             }
 
@@ -24,9 +25,4 @@
     }
 
     public bool IsNeeded() => Progress.Value >= Type.ProgressPerItem;
-
-    private bool CanSatisfy(Inventory inventory)
-    {
-        return Type.Items.All(a => inventory[a.Item] > a.Count);
-    }
 }
