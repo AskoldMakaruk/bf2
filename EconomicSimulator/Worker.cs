@@ -12,7 +12,6 @@ public class Worker : ITrading
     public List<SellingPrice> Prices { get; } = new List<SellingPrice>();
     public Inventory Inventory { get; set; }
     public WorkHours Balance { get; set; }
-    public List<DeliveryRequirement> Deliverys { get; set; } = new();
 
     public List<WorkerNeed> Needs { get; set; }
     public WorkerStatus Status { get; set; }
@@ -47,7 +46,7 @@ public class Worker : ITrading
         {
             if (need.TryToSatisfy(Inventory))
             {
-                Console.WriteLine($"need is in {need.Type.Name} satisfyed progess: {need.Progress}");
+                // Console.WriteLine($"need is in {need.Type.Name} satisfyed progess: {need.Progress}");
             }
         }
     }

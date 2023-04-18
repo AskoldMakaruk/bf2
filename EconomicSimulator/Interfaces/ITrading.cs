@@ -8,6 +8,7 @@ public interface ITrading
     public List<SellingPrice> Prices { get; }
     public Inventory Inventory { get; }
     public WorkHours Balance { get; set; }
+    public string Name { get; }
 
     public int GetCount(ItemType type)
     {
@@ -66,10 +67,11 @@ public interface ITrading
             var cheaper = proposals.Proposal.OrderBy(a =>
                     a.GetPrice(another.Prices.FirstOrDefault(x => x.Item == a.Item)))
                 .FirstOrDefault();
-            if (cheaper != default && another.GetPrice(cheaper.Item) is { } price && price <= Balance && another.Sell(cheaper, price))
+            if (cheaper != default && another.GetPrice(cheaper) is { } price && price <= Balance && another.Sell(cheaper, price))
             {
                 Balance -= price;
                 Inventory.Add(cheaper);
+                Console.WriteLine($"Seller {another.Name} sold {cheaper.Item.Name}x{cheaper.Count} for {price} to {Name}");
                 return true;
             }
         }

@@ -98,6 +98,14 @@ public class Inventory : IManyItems
         return true;
     }
 
+    // todo fix partial removals
+    public bool TryRemoveItems(IEnumerable<IOItem> ioitem)
+    {
+        var result = ioitem.Aggregate(true, (current, item) => current & TryRemoveItem(item));
+
+        return result;
+    }
+
     public void Add(IOItem item)
     {
         Items.TryAdd(item.Item, 0);

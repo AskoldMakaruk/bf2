@@ -3,19 +3,6 @@ using EconomicSimulator.Types;
 using Geolocation;
 
 Console.WriteLine(GeoCalculator.GetDistance(1.001, 1, 1, 1, distanceUnit: DistanceUnit.Meters));
-var worker = new Worker()
-{
-    Id = Guid.NewGuid(),
-    Location = new Location(1.001, 1),
-    Name = "Kok",
-    Inventory = new Inventory(),
-    Needs = new List<WorkerNeed>()
-    {
-        "thirst", "hunger"
-    },
-    TotalExperience = 1,
-    Balance = 0
-};
 
 var well1 = new Facility()
 {
@@ -26,7 +13,7 @@ var well1 = new Facility()
     Type = "water_well",
     Prices = new List<SellingPrice>()
     {
-        ("water", 1)
+        ("water", 8)
     },
     JobTypes =
     {
@@ -43,13 +30,15 @@ var farm1 = new Facility()
     Type = "ground_farm",
     Prices = new List<SellingPrice>()
     {
-        ("wheat", 3)
+        ("wheat", 40),
+        ("water", 9)
     },
     JobTypes =
     {
         JobTypes.GrowWheat
     },
-    Workers = new List<Worker>()
+    Workers = new List<Worker>(),
+    Balance = 1000m,
 };
 
 var facilities = new[]
@@ -61,14 +50,37 @@ var facilities = new[]
 var map = new Map()
 {
     Facilities = facilities.ToList(),
-    Workers = new List<Worker>() { worker }
+    Workers = new[]
+        {
+            "KOK", "balls", "Sir de La CUm", "Cumbotron 4000", "la fishe un chocolate", "hui", "pisun",
+            "joker", "totoro", "kupalnik", "kokroach", "oposum", "openheimer", "chad", "broski", "lemon",
+            "dick", "penis"
+        }.Select(CreateWorker)
+        .ToList()
 };
 
 while (true)
 {
     map.ProcessWorkers();
     map.ProcessFacilities();
-    Console.WriteLine(map.Report());
+    // Console.WriteLine(map.Report());
+}
+
+Worker CreateWorker(string name)
+{
+    return new Worker()
+    {
+        Id = Guid.NewGuid(),
+        Location = new Location(1.001, 1),
+        Name = name,
+        Inventory = new Inventory(),
+        Needs = new List<WorkerNeed>()
+        {
+            "thirst", "hunger"
+        },
+        TotalExperience = 1,
+        Balance = 0
+    };
 }
 
 
@@ -138,59 +150,4 @@ public class Item
 
 public class Tool : Item
 {
-}
-
-public class Job
-{
-    public Job(JobType type)
-    {
-        Id = Guid.NewGuid();
-        Type = type;
-    }
-
-    public Guid Id { get; set; }
-    public JobType Type { get; set; }
-    public WorkHours CurrentProgress { get; set; }
-    public List<Worker> Workers { get; set; } = new();
-
-    public bool IsProducing(ItemType type)
-    {
-        return Type.Outputs.Any(a => a.Item == type);
-    }
-
-    public IEnumerable<ItemRequirement> GetRequirements()
-    {
-        return Type.Inputs.Select(a => new ItemRequirement(a.Item, a.Count));
-    }
-
-    public bool TryAddWorker(Worker worker)
-    {
-        if (Workers.Count >= Type.MaxWorkers)
-        {
-            return false;
-        }
-
-        Workers.Add(worker);
-        return true;
-    }
-
-    public int GetWorkersNeeded()
-    {
-        return Math.Max(Type.MinWorkers - Workers.Count, 0);
-    }
-
-    public int GetLeftToMaxWorkers()
-    {
-        return Type.MaxWorkers - Workers.Count;
-    }
-
-    public void Process()
-    {
-        foreach (var worker in Workers)
-        {
-            worker.TotalExperience++;
-            worker.Balance = new WorkHours(worker.Balance + 1);
-            CurrentProgress += 1;
-        }
-    }
 }

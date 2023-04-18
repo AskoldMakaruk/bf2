@@ -36,4 +36,9 @@ public class ItemRequirements
     {
         return GetSatisfiedBy(inventory).Any();
     }
+
+    public bool NotEmpty()
+    {
+        return _requirements.Any();
+    }
 }

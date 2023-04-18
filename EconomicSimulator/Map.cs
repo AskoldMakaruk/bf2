@@ -5,13 +5,41 @@ using EconomicSimulator.Types;
 using Geolocation;
 
 
-public readonly record struct JobPost(Facility Facility, JobType Type, int Slots);
+public record JobPost(Guid Guid, Facility Facility, JobType Type, int Slots)
+{
+    private int _slots = Slots;
+
+    public JobPost(Facility Facility, JobType Type, int Slots) : this(Guid.NewGuid(), Facility, Type, Slots)
+    {
+    }
+
+    public int Slots
+    {
+        get => _slots;
+        set => _slots = value;
+    }
+};
+
+public class DeliveryNetwork
+{
+    private List<DeliveryRequirement> _deliveryRequirements = new();
+    public IReadOnlyList<DeliveryRequirement> DeliveryRequirements => _deliveryRequirements.AsReadOnly();
+
+    public List<Facility> Facilities { get; set; }
+    public List<Worker> Workers { get; set; }
+
+    public void PostDeliveryRequirement(DeliveryRequirement deliveryRequirement)
+    {
+        _deliveryRequirements.Add(deliveryRequirement);
+    }
+}
 
 public class Map
 {
     public List<Facility> Facilities { get; set; }
     public List<Worker> Workers { get; set; }
     private IEnumerable<JobPost> PreviousJobs = Array.Empty<JobPost>();
+    private IEnumerable<DeliveryRequirement> _deliveryRequirements => Facilities.OrderBy(a => a.Workers.Count).SelectMany(a => a.GetDeliveryRequirements());
 
     public void ProcessWorkers()
     {
@@ -21,11 +49,7 @@ public class Map
 
             foreach (var requirement in worker.GetRequirements())
             {
-                if (GetClosestFacilityWithRequirement(worker.Location, requirement) is not { } facilityNear) continue;
-                if (facilityNear.CanProduce(requirement) is { Value: true } answer)
-                {
-                    worker.Deliverys.Add(new DeliveryRequirement(facilityNear, answer.Requirements.Requirements));
-                }
+                if (GetProducerNear(worker.Location, requirement) is not { } facilityNear) continue;
 
                 ITrading me = worker;
                 ITrading trader = facilityNear;
@@ -35,10 +59,18 @@ public class Map
                 }
             }
 
-            foreach (var delivery in worker.Deliverys)
+            foreach (var r in _deliveryRequirements)
             {
-                foreach (var requirement in delivery.GetSatisfiedBy(worker.Inventory))
+                // if (!r.CanBeSatisfied(worker.Inventory)) continue;
+                ITrading me = worker;
+                if (GetProducerNear(worker.Location, r) is not ITrading producer) continue;
+                if (!me.TryBuyFrom(producer, r)) continue;
+
+                me.Prices.Add(("water", 9));
+                ITrading buyer = r.Facility;
+                if (buyer.TryBuyFrom(me, r))
                 {
+                    // Console.WriteLine("happy sell");
                 }
             }
 
@@ -50,11 +82,9 @@ public class Map
 
             if (worker.Status == WorkerStatus.SeekingWork)
             {
-                var jobPost = GetJobPost(new ItemRequirements(worker.GetRequirements()));
-                if (jobPost != null)
+                if (GetJobPost(new ItemRequirements(worker.GetRequirements())).FirstOrDefault(a => a.Facility.TryQueueWorker(worker, a)) is { } post)
                 {
                     worker.Status = WorkerStatus.Working;
-                    jobPost.Value.Facility.QueueWorker(worker, jobPost.Value);
                 }
             }
 
@@ -65,15 +95,20 @@ public class Map
         }
     }
 
-    private JobPost? GetJobPost(ItemRequirements requirements)
+    private Facility? GetProducerNear(Location workerLocation, ItemRequirement itemNeededItem)
     {
-        return PreviousJobs.FirstOrDefault(a => requirements.CanBeSatisfied(new ManyItems(a.Type.Outputs)));
+        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetProducibleItems().Any(itemNeededItem.Matches));
+    }
+
+    private IEnumerable<JobPost> GetJobPost(ItemRequirements requirements)
+    {
+        return PreviousJobs.Where(a => a.Slots > 0).Where(a => requirements.CanBeSatisfied(new ManyItems(a.Type.Outputs)));
     }
 
 
-    private Facility? GetProducerNear(Location workerLocation, IEnumerable<ItemRequirement> items)
+    private Facility? GetProducerNear(Location workerLocation, ItemRequirements requirements)
     {
-        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetProducibleItems().Any(type => items.Any(a => a.Matches(type))));
+        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetProducibleItems().Any(type => requirements.Requirements.Any(a => a.Matches(type))));
     }
 
     public void ProcessFacilities()
@@ -123,6 +158,7 @@ public class Map
     {
         return Facilities.Where(a => GeoCalculator.GetDistance(a.Location, location, distanceUnit: DistanceUnit.Meters) < 5000).ToList();
     }
+
 
     public IEnumerable<ItemType> ProducedNear(Location location)
     {
