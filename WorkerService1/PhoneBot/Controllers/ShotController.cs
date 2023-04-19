@@ -1,9 +1,4 @@
-﻿using System.Net;
-using BF2;
-using RtspClientSharp;
-using RtspClientSharp.RawFrames.Audio;
-using RtspClientSharp.RawFrames.Video;
-using Telegram.Bot.Types;
+﻿using BF2;
 
 namespace WorkerService1.PhoneBot;
 

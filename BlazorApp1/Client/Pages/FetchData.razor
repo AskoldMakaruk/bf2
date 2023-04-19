@@ -1,0 +1,69 @@
+﻿@page "/fetchdata"
+@using BlazorApp1.Shared
+@using Grpc.Core
+@using Grpc.Net.Client
+@using ProductionStats = BlazorApp1.Client.ProductionStats
+@using SubscribeRequest = BlazorApp1.Client.SubscribeRequest
+@using System.Collections.Concurrent
+@using Grpc.Net.Client.Web
+@using StatFrame = BlazorApp1.Client.StatFrame
+@inject HttpClient Http
+@inject ProductionStats.ProductionStatsClient Client
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (Frames == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var forecast in Frames)
+        {
+            <tr>
+                <td>@forecast.Name</td>
+                <td>@forecast.Count</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    public List<StatFrame> Frames { get; set; } = new List<StatFrame>();
+    private Task Update;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var model = Client.Subscribe(new SubscribeRequest());
+        Update = Task.Run(async () =>
+        {
+            await foreach (var frame in model.ResponseStream.ReadAllAsync())
+            {
+                if (Frames.Count > 10)
+                {
+                    break;
+                }
+                Frames.Add(frame);
+                this.StateHasChanged();
+            }
+        });
+
+        await Update;
+    }
+
+}

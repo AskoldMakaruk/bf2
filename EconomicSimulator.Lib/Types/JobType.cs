@@ -1,6 +1,4 @@
-﻿using EconomicSimulator.Types;
-
-public readonly record struct JobType(string Name,
+﻿public readonly record struct JobType(string Name,
     string Description,
     string TypeName,
     decimal WorkHoursNeeded,

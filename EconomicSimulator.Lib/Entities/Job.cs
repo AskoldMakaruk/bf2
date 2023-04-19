@@ -10,7 +10,7 @@ public class Job
 
     public Guid Id { get; set; }
     public JobType Type { get; set; }
-    public WorkHours CurrentProgress { get; set; }
+    public HumanHours CurrentProgress { get; set; }
     public List<Worker> Workers { get; set; } = new();
 
     public bool IsProducing(ItemType type)
@@ -45,7 +45,7 @@ public class Job
         foreach (var worker in Workers)
         {
             worker.TotalExperience++;
-            worker.Balance = new WorkHours(worker.Balance + 1);
+            worker.Balance = new HumanHours(worker.Balance + 1);
             CurrentProgress += 1;
         }
     }

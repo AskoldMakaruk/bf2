@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using EconomicSimulator.Types;
+﻿using EconomicSimulator.Types;
 
 namespace EconomicSimulator.Interfaces;
 
@@ -7,7 +6,7 @@ public interface ITrading
 {
     public List<SellingPrice> Prices { get; }
     public Inventory Inventory { get; }
-    public WorkHours Balance { get; set; }
+    public HumanHours Balance { get; set; }
     public string Name { get; }
 
     public int GetCount(ItemType type)
@@ -41,7 +40,7 @@ public interface ITrading
         return item.GetPrice(Prices.FirstOrDefault(a => a.Item == item.Item));
     }
 
-    public bool Sell(IOItem item, WorkHours price)
+    public bool Sell(IOItem item, HumanHours price)
     {
         if (GetPrice(item) < price || !Inventory.TryRemoveItem(item)) return false;
         Balance += price;

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "BlazorApp1.Shared";
+
+package stats;
+
+service ProductionStats {
+
+    // Subscribes to stat updates
+    rpc Subscribe (SubscribeRequest) returns (stream StatFrame) {}
+}
+
+message SubscribeRequest {
+    // No request parameters
+}
+
+message StatFrame {
+    string name = 1;
+    int32 count = 2;
+}

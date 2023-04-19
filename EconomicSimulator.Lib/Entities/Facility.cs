@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.InteropServices.JavaScript;
-using EconomicSimulator;
+﻿using EconomicSimulator;
 using EconomicSimulator.Interfaces;
 using EconomicSimulator.Types;
 
@@ -11,7 +9,7 @@ public class Facility : ITrading
     public FacilityType Type { get; set; }
     public Location Location { get; set; }
     public Inventory Inventory { get; set; }
-    public WorkHours Balance { get; set; }
+    public HumanHours Balance { get; set; }
     public List<SellingPrice> Prices { get; set; }
 
     public List<JobType> JobTypes { get; set; } = new();
@@ -66,10 +64,11 @@ public class Facility : ITrading
             foreach (var (item, count) in job.Type.Outputs)
             {
                 Inventory.Add(new(item, completedCount * count));
+                GameStats.Post($"production#{item.TypeName}", count * count);
             }
 
             JobQueue.Remove(job);
-            Balance = new WorkHours(Value: Balance.Value - job.CurrentProgress);
+            Balance = new HumanHours(Value: Balance.Value - job.CurrentProgress);
         }
     }
 
@@ -134,7 +133,7 @@ public class Facility : ITrading
         {
             AddRandomJobPost();
         }
-        
+
         // todo add workers quitting if dissatisfied or facility overproduced and need to sell
         // Workers.RemoveAll(a => a.Status != WorkerStatus.Working);
 

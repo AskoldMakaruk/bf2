@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BF2;
+using Telegram.Bot;
 
 var builder = Host.CreateDefaultBuilder(args);
 builder.UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -15,8 +16,9 @@ app.Run();
 public class StartController : BotController
 {
     [Command("/start")]
-    public async Task<View> Start()
+    public async Task<View> Start(TelegramBotClient client)
     {
+        
         return new StartView(Update.Message.From.Username);
     }
 
