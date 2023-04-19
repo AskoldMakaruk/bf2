@@ -17,11 +17,16 @@ public class Wallet
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public string Currency { get; set; }
+    public List<Currency> Currency { get; set; }
     public decimal Balance { get; set; }
 
     public int PersonId { get; set; }
     public Person Person { get; set; }
+}
+
+public class Currency
+{
+    public string Token {get; set;}
 }
 
 public class ShowcaseContext : DbContext
