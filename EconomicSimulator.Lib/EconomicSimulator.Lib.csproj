@@ -8,5 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Geolocation" Version="1.2.1" />
+        <PackageReference Include="ScottPlot" Version="5.0.4-beta" />
     </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@ namespace EconomicSimulator.Interfaces;
 
 public interface ITrading
 {
-    public List<SellingPrice> Prices { get; }
+    public Dictionary<ItemType, HumanHours> Prices { get; }
     public Inventory Inventory { get; }
     public HumanHours Balance { get; set; }
     public string Name { get; }
@@ -25,19 +25,19 @@ public interface ITrading
     // be able to buy like 80% what they've produced back
     // but soloing the economy is inefficient and workers should strive to work for more 
     // paying job
-    public decimal? GetPrice(ItemRequirement itemNeeded)
+    public HumanHours? GetPrice(ItemRequirement itemNeeded)
     {
-        return Prices.FirstOrDefault(a => itemNeeded.Matches(a.Item))?.Price;
+        return Prices.FirstOrDefault(a => itemNeeded.Matches(a.Key)).Value;
     }
 
-    public decimal? GetPrice(ItemType itemNeeded)
+    public HumanHours? GetPrice(ItemType itemNeeded)
     {
-        return Prices.FirstOrDefault(a => itemNeeded == a.Item)?.Price;
+        return Prices.FirstOrDefault(a => itemNeeded == a.Key).Value;
     }
 
     public decimal? GetPrice(IOItem item)
     {
-        return item.GetPrice(Prices.FirstOrDefault(a => a.Item == item.Item));
+        return item.GetPrice(Prices.FirstOrDefault(a => a.Key == item.Item).Value);
     }
 
     public bool Sell(IOItem item, HumanHours price)
@@ -64,13 +64,13 @@ public interface ITrading
         foreach (var proposals in proposalsList)
         {
             var cheaper = proposals.Proposal.OrderBy(a =>
-                    a.GetPrice(another.Prices.FirstOrDefault(x => x.Item == a.Item)))
+                    a.GetPrice(another.Prices.FirstOrDefault(x => x.Key == a.Item).Value))
                 .FirstOrDefault();
             if (cheaper != default && another.GetPrice(cheaper) is { } price && price <= Balance && another.Sell(cheaper, price))
             {
                 Balance -= price;
                 Inventory.Add(cheaper);
-                Console.WriteLine($"Seller {another.Name} sold {cheaper.Item.Name}x{cheaper.Count} for {price} to {Name}");
+                // Console.WriteLine($"Seller {another.Name} sold {cheaper.Item.Name}x{cheaper.Count} for {price} to {Name}");
                 return true;
             }
         }

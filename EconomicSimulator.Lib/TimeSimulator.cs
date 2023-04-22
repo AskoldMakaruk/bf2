@@ -10,6 +10,8 @@ public class TimeSimulator
     private const string DayEmoji = "\U0001F31E"; // sun emoji
     private const string NightEmoji = "\U0001F319"; // crescent moon emoji
 
+    public long Ticks { get; private set; }
+
     public TimeSimulator()
     {
         _currentTime = new DateTime(638175612000000000);
@@ -18,6 +20,7 @@ public class TimeSimulator
     public void Tick()
     {
         _currentTime = _currentTime.AddHours(TicksPerHour);
+        Ticks++;
     }
 
     public string Display()

@@ -82,6 +82,14 @@ public class Inventory : IManyItems
         return result;
     }
 
+    public void AddRange(IEnumerable<IOItem> items)
+    {
+        foreach (var ioItem in items)
+        {
+            Add(ioItem);
+        }
+    }
+
     public void Add(IOItem item)
     {
         Items.TryAdd(item.Item, 0);

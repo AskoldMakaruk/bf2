@@ -1,4 +1,7 @@
-﻿namespace EconomicSimulator.Lib;
+﻿using EconomicSimulator.Lib.Entities;
+using EconomicSimulator.Types;
+
+namespace EconomicSimulator.Lib;
 
 public class StartStatic
 {
@@ -11,9 +14,9 @@ public class StartStatic
             Location = new Location(1, 1),
             Name = "Water Well 1",
             Type = "water_well",
-            Prices = new List<SellingPrice>()
+            Prices = new Dictionary<ItemType, HumanHours>()
             {
-                ("water", 8)
+                { "water", 8 }
             },
             JobTypes =
             {
@@ -28,10 +31,10 @@ public class StartStatic
             Location = new Location(1, 1.0001),
             Name = "Farm 1",
             Type = "ground_farm",
-            Prices = new List<SellingPrice>()
+            Prices = new Dictionary<ItemType, HumanHours>()
             {
-                ("wheat", 40),
-                ("water", 9)
+                { "wheat", 40 },
+                { "water", 9 }
             },
             JobTypes =
             {
@@ -65,8 +68,11 @@ public class StartStatic
             map.ProcessFacilities();
             // Console.WriteLine(map.Report());
             Game.Time.Tick();
-            Console.WriteLine(Game.Time.Display());
-            Thread.Sleep(10);
+            if (Game.Time.Ticks % 1000 == 0)
+            {
+                GameStats.SavePng();
+            }
+
             GameStats.PostFrames().Wait();
         }
 

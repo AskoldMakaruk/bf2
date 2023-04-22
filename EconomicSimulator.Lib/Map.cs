@@ -1,15 +1,28 @@
 ﻿using System.Text;
 using EconomicSimulator;
 using EconomicSimulator.Interfaces;
+using EconomicSimulator.Lib.Entities;
 using EconomicSimulator.Types;
 using Geolocation;
 
 
-public record JobPost(Guid Guid, Facility Facility, JobType Type, int Slots)
+public record JobPost(Guid Guid, IFacility Facility, JobType Type, int Slots)
 {
+    public virtual bool Equals(JobPost? other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return Guid.Equals(other.Guid);
+    }
+
+    public override int GetHashCode()
+    {
+        return Guid.GetHashCode();
+    }
+
     private int _slots = Slots;
 
-    public JobPost(Facility Facility, JobType Type, int Slots) : this(Guid.NewGuid(), Facility, Type, Slots)
+    public JobPost(IFacility Facility, JobType Type, int Slots) : this(Guid.NewGuid(), Facility, Type, Slots)
     {
     }
 
@@ -55,7 +68,7 @@ public class Map
                 ITrading trader = facilityNear;
                 if (me.TryBuyFrom(trader, requirement))
                 {
-                    Console.WriteLine("happy purcashe");
+                    // Console.WriteLine("happy purcashe");
                 }
             }
 
@@ -63,10 +76,10 @@ public class Map
             {
                 // if (!r.CanBeSatisfied(worker.Inventory)) continue;
                 ITrading me = worker;
-                if (GetProducerNear(worker.Location, r) is not ITrading producer) continue;
-                if (!me.TryBuyFrom(producer, r)) continue;
+                // if (GetProducerNear(worker.Location, r) is not ITrading producer) continue;
+                // if (!me.TryBuyFrom(producer, r)) continue;
 
-                me.Prices.Add(("water", 9));
+                me.Prices["water"] = 9;
                 ITrading buyer = r.Facility;
                 if (buyer.TryBuyFrom(me, r))
                 {
@@ -82,7 +95,7 @@ public class Map
 
             if (worker.Status == WorkerStatus.SeekingWork)
             {
-                if (GetJobPost(new ItemRequirements(worker.GetRequirements())).FirstOrDefault(a => a.Facility.TryQueueWorker(worker, a)) is { } post)
+                if (GetJobPost(new ItemRequirements(worker.GetRequirements())).FirstOrDefault(a => a.Facility.TryHire(worker, a)) is { } post)
                 {
                     worker.Status = WorkerStatus.Working;
                 }
@@ -116,7 +129,7 @@ public class Map
         var posts = new LinkedList<JobPost>();
         foreach (var facility in Facilities)
         {
-            facility.ProcessJobs();
+            facility.Process();
             foreach (var post in facility.GetJobPosts())
             {
                 posts.AddLast(post);

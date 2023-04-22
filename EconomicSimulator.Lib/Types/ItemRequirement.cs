@@ -83,6 +83,6 @@ public readonly record struct FulfilmentVariant(ItemRequirement Requirement, Lis
 {
     public decimal GetCost(SellingPrice price)
     {
-        return Proposal.Sum(a => a.GetPrice(price));
+        return Proposal.Sum(a => a.GetPrice(price.Price));
     }
 }

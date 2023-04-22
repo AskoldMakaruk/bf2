@@ -1,8 +1,37 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Microsoft.EntityFrameworkCore;
 
-using Microsoft.EntityFrameworkCore;
+var context = new ShowcaseContext();
+context.Database.EnsureDeleted();
+context.Database.EnsureCreated();
 
-Console.WriteLine("Hello, World!");
+context.People.Add(new Person()
+{
+    Age = 10,
+    Name = "Тимур",
+    Wallets = new List<Wallet>()
+    {
+        new Wallet()
+        {
+            Accounts = new List<Account>()
+            {
+                new Account()
+                {
+                    Balance = -100_000,
+                    Currency =
+                        new Currency()
+                        {
+                            Token = "UAH"
+                        },
+                }
+            },
+
+            Name = "Кредит монобанк",
+        }
+    },
+    Email = "pidor@loh.com"
+});
+
+context.SaveChanges();
 
 public class Person
 {
@@ -17,16 +46,24 @@ public class Wallet
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public List<Currency> Currency { get; set; }
-    public decimal Balance { get; set; }
+
+    public List<Account> Accounts { get; set; }
 
     public int PersonId { get; set; }
     public Person Person { get; set; }
 }
 
+public class Account
+{
+    public int Id { get; set; }
+    public Currency Currency { get; set; }
+
+    public decimal Balance { get; set; }
+}
+
 public class Currency
 {
-    public string Token {get; set;}
+    public string Token { get; set; }
 }
 
 public class ShowcaseContext : DbContext
@@ -46,5 +83,7 @@ public class ShowcaseContext : DbContext
             builder.HasKey(a => a.Id);
             builder.HasMany(a => a.Wallets).WithOne(a => a.Person);
         });
+
+        modelBuilder.Entity<Currency>(builder => { builder.HasKey(a => a.Token); });
     }
 }
