@@ -6,6 +6,7 @@ using EconomicSimulator.Types;
 using Geolocation;
 
 
+
 public record JobPost(Guid Guid, IFacility Facility, JobType Type, int Slots)
 {
     public virtual bool Equals(JobPost? other)

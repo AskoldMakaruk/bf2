@@ -27,4 +27,9 @@ public readonly record struct ItemType(string Name, string Description, string T
     {
         return !(left == right);
     }
+
+    public override string ToString()
+    {
+        return TypeName;
+    }
 }
