@@ -6,6 +6,13 @@ using EconomicSimulator.Types;
 /// </summary>
 public class ItemRequirement
 {
+    public ItemRequirement(ItemType type, int count, decimal? price)
+    {
+        Type = type;
+        Count = count;
+        Price = price;
+    }
+
     public ItemRequirement(ItemType type, int count)
     {
         Type = type;
@@ -21,16 +28,10 @@ public class ItemRequirement
     public static implicit operator ItemRequirement((string, int ) tuple) => new ItemRequirement(ItemTypes.Get(tuple.Item1), tuple.Item2);
     public static implicit operator ItemRequirement((HashTag, int ) tuple) => new ItemRequirement(tuple.Item1, tuple.Item2);
 
-
-    public ItemRequirement Or(ItemRequirement other)
-    {
-        // todo requirement substitution
-        return null;
-    }
-
     public HashTag? HashTag { get; }
     public ItemType? Type { get; }
     public int Count { get; }
+    public decimal? Price { get; }
 
     public IEnumerable<ItemType> Matches(IEnumerable<ItemType> itemTypes)
     {

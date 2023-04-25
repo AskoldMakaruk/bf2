@@ -70,7 +70,7 @@ public class StartStatic
             Game.Time.Tick();
             if (Game.Time.Ticks % 1000 == 0)
             {
-                GameStats.SavePng();
+                // GameStats.SavePng();
             }
 
             GameStats.PostFrames().Wait();

@@ -2,9 +2,9 @@
 using EconomicSimulator;
 using EconomicSimulator.Interfaces;
 using EconomicSimulator.Lib.Entities;
+using EconomicSimulator.Lib.Exchange;
 using EconomicSimulator.Types;
 using Geolocation;
-
 
 
 public record JobPost(Guid Guid, IFacility Facility, JobType Type, int Slots)
@@ -52,8 +52,9 @@ public class Map
 {
     public List<Facility> Facilities { get; set; }
     public List<Worker> Workers { get; set; }
+
     private IEnumerable<JobPost> PreviousJobs = Array.Empty<JobPost>();
-    private IEnumerable<DeliveryRequirement> _deliveryRequirements => Facilities.OrderBy(a => a.Workers.Count).SelectMany(a => a.GetDeliveryRequirements());
+    // private IEnumerable<DeliveryRequirement> _deliveryRequirements => Facilities.OrderBy(a => a.Workers.Count).SelectMany(a => a.GetDeliveryRequirements());
 
     public void ProcessWorkers()
     {
@@ -63,30 +64,51 @@ public class Map
 
             foreach (var requirement in worker.GetRequirements())
             {
-                if (GetProducerNear(worker.Location, requirement) is not { } facilityNear) continue;
-
-                ITrading me = worker;
-                ITrading trader = facilityNear;
-                if (me.TryBuyFrom(trader, requirement))
+                var matches = Market.MatchesRequirement(requirement).ToList();
+                if (matches.Count == 0)
                 {
-                    // Console.WriteLine("happy purcashe");
+                    continue;
                 }
+
+                var orderType = matches.First();
+                Market.AddOrder(new Order()
+                {
+                    ItemType = orderType,
+                    Added = DateTime.Now,
+                    Amount = requirement.Count,
+                    Author = worker.Name,
+                    Direction = OrderDirection.Buy,
+                    Price = null,
+                });
             }
 
-            foreach (var r in _deliveryRequirements)
+            foreach (var output in worker.Inventory.Where(a => a.Count > 50))
             {
-                // if (!r.CanBeSatisfied(worker.Inventory)) continue;
-                ITrading me = worker;
-                // if (GetProducerNear(worker.Location, r) is not ITrading producer) continue;
-                // if (!me.TryBuyFrom(producer, r)) continue;
-
-                me.Prices["water"] = 9;
-                ITrading buyer = r.Facility;
-                if (buyer.TryBuyFrom(me, r))
+                Market.AddOrder(new Order()
                 {
-                    // Console.WriteLine("happy sell");
-                }
+                    ItemType = output.Item,
+                    Added = DateTime.Now,
+                    Amount = 20,
+                    Author = worker.Name,
+                    Direction = OrderDirection.Sell,
+                    Price = worker as ITrading is { } t ? t.GetPrice(output) : 9
+                });
             }
+
+            // foreach (var r in _deliveryRequirements)
+            // {
+            //     // if (!r.CanBeSatisfied(worker.Inventory)) continue;
+            //     ITrading me = worker;
+            //     // if (GetProducerNear(worker.Location, r) is not ITrading producer) continue;
+            //     // if (!me.TryBuyFrom(producer, r)) continue;
+            //
+            //     me.Prices["water"] = 9;
+            //     ITrading buyer = r.Facility;
+            //     if (buyer.TryBuyFrom(me, r))
+            //     {
+            //         // Console.WriteLine("happy sell");
+            //     }
+            // }
 
             worker.Consume();
             if (!worker.NeedsSomething())
@@ -111,7 +133,7 @@ public class Map
 
     private Facility? GetProducerNear(Location workerLocation, ItemRequirement itemNeededItem)
     {
-        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetProducibleItems().Any(itemNeededItem.Matches));
+        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetOutputs().Any(itemNeededItem.Matches));
     }
 
     private IEnumerable<JobPost> GetJobPost(ItemRequirements requirements)
@@ -122,7 +144,7 @@ public class Map
 
     private Facility? GetProducerNear(Location workerLocation, ItemRequirements requirements)
     {
-        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetProducibleItems().Any(type => requirements.Requirements.Any(a => a.Matches(type))));
+        return GetFacilitiesNear(workerLocation).FirstOrDefault(a => a.GetOutputs().Any(type => requirements.Requirements.Any(a => a.Matches(type))));
     }
 
     public void ProcessFacilities()
@@ -176,7 +198,7 @@ public class Map
 
     public IEnumerable<ItemType> ProducedNear(Location location)
     {
-        return GetFacilitiesNear(location).SelectMany(a => a.GetProducibleItems());
+        return GetFacilitiesNear(location).SelectMany(a => a.GetOutputs());
     }
 
     public Facility? GetClosestFacilityWithRequirement(Location location, ItemRequirement itemRequirement)

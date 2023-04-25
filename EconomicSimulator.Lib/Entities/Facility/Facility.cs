@@ -1,4 +1,5 @@
 ﻿using EconomicSimulator.Interfaces;
+using EconomicSimulator.Lib.Exchange;
 using EconomicSimulator.Types;
 
 namespace EconomicSimulator.Lib.Entities;
@@ -41,17 +42,17 @@ public class Facility : ITrading, IFacility
 
     public bool CanProduce(ItemType itemNeededItem)
     {
-        return GetProducibleItems().Any(b => b == itemNeededItem);
+        return GetOutputs().Any(b => b == itemNeededItem);
     }
 
-    public IEnumerable<ItemType> GetProducibleItems()
+    public IEnumerable<ItemType> GetOutputs()
     {
         return JobTypes.SelectMany(a => a.Outputs).Select(a => a.Item);
     }
 
     public CanProduceAnswer CanProduce(ItemRequirement itemNeededItem)
     {
-        var possibleProducts = itemNeededItem.Matches(GetProducibleItems()).ToList();
+        var possibleProducts = itemNeededItem.Matches(GetOutputs()).ToList();
         var product = possibleProducts.FirstOrDefault();
         var job = JobTypes.FirstOrDefault(a => a.Outputs.Any(a => a.Item == product));
         if (job == null)
@@ -64,7 +65,8 @@ public class Facility : ITrading, IFacility
 
     public IEnumerable<DeliveryRequirement> GetDeliveryRequirements()
     {
-        var requirementsForNextFiveJobs = JobTypes.Select(a => a.Inputs.Select(a => new ItemRequirement(a.Item, a.Count * 5)));
+        var sellingPrices = this as ITrading;
+        var requirementsForNextFiveJobs = JobTypes.Select(a => a.Inputs.Select(a => new ItemRequirement(a.Item, a.Count * 5, sellingPrices.GetPrice(a.Item))));
         return requirementsForNextFiveJobs.Select(a => new DeliveryRequirement(this, a)).Where(a => a.NotEmpty() && !a.CanBeSatisfied(Inventory));
     }
 
@@ -94,6 +96,22 @@ public class Facility : ITrading, IFacility
     {
         OperationalDepartment.ProcessJobs();
         AddRandomJobPost();
+        Market.AddDelivery(GetDeliveryRequirements());
+        foreach (var output in GetOutputs())
+        {
+            if (Inventory[output] >= 20)
+            {
+                Market.AddOrder(new Order()
+                {
+                    ItemType = output,
+                    Added = DateTime.Now,
+                    Amount = 20,
+                    Author = Name,
+                    Direction = OrderDirection.Sell,
+                    Price = GetPrice(output),
+                });
+            }
+        }
     }
 
     public IEnumerable<JobPost> GetJobPosts()
