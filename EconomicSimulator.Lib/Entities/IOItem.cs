@@ -1,5 +1,6 @@
-﻿using EconomicSimulator;
-using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Types;
+
+namespace EconomicSimulator.Lib.Entities;
 
 public readonly record struct IOItem(ItemType Item, int Count)
 {

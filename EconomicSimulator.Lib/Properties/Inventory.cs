@@ -1,7 +1,9 @@
 ﻿using System.Collections;
-using EconomicSimulator.Types;
+using EconomicSimulator.Lib.Entities;
+using EconomicSimulator.Lib.Interfaces;
+using EconomicSimulator.Lib.Types;
 
-namespace EconomicSimulator;
+namespace EconomicSimulator.Lib.Properties;
 
 public class ManyItems : IManyItems
 {

@@ -1,6 +1,8 @@
-﻿using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Entities;
+using EconomicSimulator.Lib.Properties;
+using EconomicSimulator.Lib.Types;
 
-namespace EconomicSimulator.Interfaces;
+namespace EconomicSimulator.Lib.Interfaces;
 
 public interface ITrading
 {

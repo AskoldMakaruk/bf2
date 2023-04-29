@@ -1,5 +1,6 @@
 ﻿using EconomicSimulator.Lib.Entities;
-using EconomicSimulator.Types;
+using EconomicSimulator.Lib.Properties;
+using EconomicSimulator.Lib.Types;
 
 namespace EconomicSimulator.Lib;
 
@@ -38,7 +39,7 @@ public class StartStatic
             },
             JobTypes =
             {
-                JobTypes.GrowWheat
+                JobTypes.CollectIronOre
             },
             Workers = new List<Worker>(),
             Balance = 1000m,
@@ -50,25 +51,22 @@ public class StartStatic
             farm1
         };
 
-        var map = new Map()
-        {
-            Facilities = facilities.ToList(),
-            Workers = new[]
-                {
-                    "KOK", "balls", "Sir de La CUm", "Cumbotron 4000", "la fishe un chocolate", "hui", "pisun",
-                    "joker", "totoro", "kupalnik", "kokroach", "oposum", "openheimer", "chad", "broski", "lemon",
-                    "dick", "penis"
-                }.Select(CreateWorker)
-                .ToList()
-        };
+        Map.Facilities = facilities.ToList();
+        Map.Workers = new[]
+            {
+                "KOK", "balls", "Sir de La CUm", "Cumbotron 4000", "la fishe un chocolate", "hui", "pisun",
+                "joker", "totoro", "kupalnik", "kokroach", "oposum", "openheimer", "chad", "broski", "lemon",
+                "dick", "penis"
+            }.Select(CreateWorker)
+            .ToList();
 
         while (true)
         {
-            map.ProcessWorkers();
-            map.ProcessFacilities();
+            Map.ProcessWorkers();
+            Map.ProcessFacilities();
             // Console.WriteLine(map.Report());
             Game.Time.Tick();
-            if (Game.Time.Ticks % 1000 == 0)
+            if (Game.Time.TotalTicks % 1000 == 0)
             {
                 // GameStats.SavePng();
             }

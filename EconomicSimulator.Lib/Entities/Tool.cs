@@ -1,3 +1,5 @@
-﻿public class Tool : Item
+﻿namespace EconomicSimulator.Lib.Entities;
+
+public class Tool : Item
 {
 }

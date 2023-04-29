@@ -1,4 +1,6 @@
-﻿public enum WorkerStatus
+﻿namespace EconomicSimulator.Lib;
+
+public enum WorkerStatus
 {
     Idle,
     Working,

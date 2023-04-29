@@ -1,8 +1,7 @@
-﻿using EconomicSimulator.Lib;
-using EconomicSimulator.Lib.Exchange;
+﻿using EconomicSimulator.Lib.Exchange;
 using ScottPlot;
 
-namespace EconomicSimulator;
+namespace EconomicSimulator.Lib;
 
 public class OrderBookGraphDto
 {
@@ -31,7 +30,7 @@ public static class GraphRenderer
         }
 
         Directory.CreateDirectory("production");
-        myPlot.SavePng($"production/ProductionStats_{Game.Time.Ticks}.png", 300, 300);
-        Console.WriteLine($"Saved tick {Game.Time.Ticks}");
+        myPlot.SavePng($"production/ProductionStats_{Game.Time.TotalTicks}.png", 300, 300);
+        Console.WriteLine($"Saved tick {Game.Time.TotalTicks}");
     }
 }

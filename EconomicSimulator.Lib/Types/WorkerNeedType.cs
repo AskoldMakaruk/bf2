@@ -1,4 +1,4 @@
-﻿using EconomicSimulator;
+﻿namespace EconomicSimulator.Lib.Types;
 
 public readonly record struct WorkerNeedType(string Name,
     string Description,

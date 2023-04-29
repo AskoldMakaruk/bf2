@@ -1,5 +1,7 @@
-﻿using EconomicSimulator;
-using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Entities;
+using EconomicSimulator.Lib.Interfaces;
+
+namespace EconomicSimulator.Lib.Types;
 
 /// <summary>
 /// Contains data for item requirement

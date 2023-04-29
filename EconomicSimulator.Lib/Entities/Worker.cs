@@ -1,10 +1,69 @@
-﻿using EconomicSimulator;
-using EconomicSimulator.Interfaces;
-using EconomicSimulator.Lib.Entities;
-using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Exchange;
+using EconomicSimulator.Lib.Interfaces;
+using EconomicSimulator.Lib.Properties;
+using EconomicSimulator.Lib.Types;
+
+namespace EconomicSimulator.Lib.Entities;
 
 public class Worker : ITrading
 {
+    public void Process()
+    {
+        ProcessNeeds();
+
+        foreach (var requirement in GetRequirements())
+        {
+            var matches = Market.MatchesRequirement(requirement).ToList();
+            if (matches.Count == 0)
+            {
+                continue;
+            }
+
+            var orderType = matches.First();
+            Market.AddOrder(new Order()
+            {
+                ItemType = orderType,
+                Added = DateTime.Now,
+                Amount = requirement.Count,
+                Author = Name,
+                Direction = OrderDirection.Buy,
+                Price = null,
+            });
+        }
+
+        foreach (var output in Inventory.Where(a => a.Count > 50))
+        {
+            Market.AddOrder(new Order()
+            {
+                ItemType = output.Item,
+                Added = DateTime.Now,
+                Amount = 20,
+                Author = Name,
+                Direction = OrderDirection.Sell,
+                Price = this as ITrading is { } t ? t.GetPrice(output) : 9
+            });
+        }
+
+        Consume();
+        if (!NeedsSomething())
+        {
+            Status = WorkerStatus.Idle;
+        }
+
+        if (Status == WorkerStatus.SeekingWork)
+        {
+            if (Map.GetJobPost(new ItemRequirements(GetRequirements())).FirstOrDefault(a => a.Facility.TryHire(this, a)) is { } post)
+            {
+                Status = WorkerStatus.Working;
+            }
+        }
+
+        if (Status == WorkerStatus.SatisfyNeed)
+        {
+            Status = WorkerStatus.SeekingWork;
+        }
+    }
+
     protected bool Equals(Worker other)
     {
         return Id.Equals(other.Id);

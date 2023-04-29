@@ -1,22 +1,92 @@
-﻿using Telegram.Bot;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
+using Telegram.Bot;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 
 namespace BF2;
 
-public abstract class View
+public class ViewFactory
 {
-    public abstract string ToView();
-    public static implicit operator View(string text) => new StringView() { Text = text };
+    public ViewFactory()
+    {
+        
+    }
+}
+public abstract partial class View
+{
+    [StringSyntax(StringSyntaxAttribute.CompositeFormat)]
+    public abstract string Format { get; }
+
+    public string ToView()
+    {
+        var type = GetType();
+        var view = FormatRegex().Replace(Format, m => "(?'" + type.GetProperty(m.Groups[1].Value)?.GetValue(this) + "'.+)");
+        return view;
+    }
+
+    public View()
+    {
+    }
+
+    public View(string input)
+    {
+        var formatWithPlaceholders = FormatRegex().Replace(Format, m => "(?'" + m.Groups[1].Value + "'.+)");
+
+        var groups = Regex.Match(input, formatWithPlaceholders).Groups;
+        var type = GetType();
+        foreach (Group group in groups)
+        {
+            var propertyName = group.Name;
+            var property = type.GetProperty(propertyName);
+
+            if (property == null)
+            {
+                continue;
+            }
+
+            var value = group.Value;
+
+            // todo collection of views
+            if (property.PropertyType == typeof(DateTime))
+            {
+                property.SetValue(this, DateTime.Parse(value));
+                continue;
+            }
+
+            if (property.PropertyType == typeof(int))
+            {
+                property.SetValue(this, int.Parse(value));
+                continue;
+            }
+
+            if (property.PropertyType == typeof(string))
+            {
+                property.SetValue(this, value);
+                continue;
+            }
+        }
+    }
+
+    [GeneratedRegex("\\{(\\w+)\\}")]
+    private static partial Regex FormatRegex();
 }
 
 public class StringView : View
 {
-    public string Text;
+    public string Text { get; set; }
 
-    public override string ToView()
+    public override string Format => "{Text}";
+
+
+    public StringView(string input) : base(input)
     {
-        return Text;
     }
+
+    public StringView()
+    {
+    }
+
 
     public static implicit operator StringView(string text) => new() { Text = text };
 }

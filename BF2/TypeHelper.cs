@@ -1,7 +1,6 @@
 using System.Reflection;
-using BF2;
 
-namespace WorkerService1;
+namespace BF2;
 
 public class FromServicesAttribute : Attribute
 {

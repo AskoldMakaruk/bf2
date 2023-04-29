@@ -1,6 +1,7 @@
-using EconomicSimulator.Types;
+using EconomicSimulator.Lib.Entities;
+using EconomicSimulator.Lib.Types;
 
-namespace EconomicSimulator;
+namespace EconomicSimulator.Lib.Interfaces;
 
 public interface IManyItems : IEnumerable<IOItem>
 {

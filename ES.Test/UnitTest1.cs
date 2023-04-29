@@ -1,3 +1,5 @@
+using System.Reflection;
+using System.Text.RegularExpressions;
 using EconomicSimulator.Lib.Exchange;
 using FluentAssertions;
 

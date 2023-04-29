@@ -1,4 +1,4 @@
-﻿using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Types;
 
 namespace EconomicSimulator.Lib.Exchange;
 

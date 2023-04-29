@@ -1,4 +1,6 @@
-using EconomicSimulator;
+using EconomicSimulator.Lib.Interfaces;
+
+namespace EconomicSimulator.Lib.Types;
 
 public class ItemRequirements
 {

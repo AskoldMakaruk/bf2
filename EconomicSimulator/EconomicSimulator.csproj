@@ -8,11 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
       <PackageReference Include="Geolocation" Version="1.2.1" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+      <PackageReference Include="Neo4jClient" Version="5.1.1" />
       <PackageReference Include="SkiaSharp" Version="2.88.3" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BF2\BF2.csproj" />
       <ProjectReference Include="..\EconomicSimulator.Lib\EconomicSimulator.Lib.csproj" />
     </ItemGroup>
 

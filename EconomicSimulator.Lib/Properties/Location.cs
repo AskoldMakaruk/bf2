@@ -1,5 +1,7 @@
 ﻿using Geolocation;
 
+namespace EconomicSimulator.Lib.Properties;
+
 public class Location
 {
     public Location(double latitude, double longitude)

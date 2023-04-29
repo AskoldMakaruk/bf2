@@ -1,4 +1,6 @@
-﻿using EconomicSimulator;
+﻿using EconomicSimulator.Lib.Types;
+
+namespace EconomicSimulator.Lib.Properties;
 
 public class WorkerNeed
 {

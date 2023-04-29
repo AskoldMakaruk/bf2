@@ -1,4 +1,6 @@
-﻿namespace EconomicSimulator.Lib.Entities;
+﻿using EconomicSimulator.Lib.Types;
+
+namespace EconomicSimulator.Lib.Entities;
 
 public class DeliveryRequirement : ItemRequirements
 {

@@ -1,6 +1,7 @@
-using BF2;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
+
+namespace BF2;
 
 public static class TelegramBotExtentions
 {

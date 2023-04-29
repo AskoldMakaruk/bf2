@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Database.Showcase;
+using Microsoft.EntityFrameworkCore;
 
 var context = new ShowcaseContext();
 context.Database.EnsureDeleted();
@@ -33,57 +34,60 @@ context.People.Add(new Person()
 
 context.SaveChanges();
 
-public class Person
+namespace Database.Showcase
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int Age { get; set; }
-    public string Email { get; set; }
-    public List<Wallet> Wallets { get; set; }
-}
-
-public class Wallet
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-
-    public List<Account> Accounts { get; set; }
-
-    public int PersonId { get; set; }
-    public Person Person { get; set; }
-}
-
-public class Account
-{
-    public int Id { get; set; }
-    public Currency Currency { get; set; }
-
-    public decimal Balance { get; set; }
-}
-
-public class Currency
-{
-    public string Token { get; set; }
-}
-
-public class ShowcaseContext : DbContext
-{
-    public DbSet<Person> People { get; set; }
-    public DbSet<Wallet> Wallets { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class Person
     {
-        optionsBuilder.UseSqlite("Data Source=./database.db");
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Email { get; set; }
+        public List<Wallet> Wallets { get; set; }
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class Wallet
     {
-        modelBuilder.Entity<Person>(builder =>
-        {
-            builder.HasKey(a => a.Id);
-            builder.HasMany(a => a.Wallets).WithOne(a => a.Person);
-        });
+        public int Id { get; set; }
+        public string Name { get; set; }
 
-        modelBuilder.Entity<Currency>(builder => { builder.HasKey(a => a.Token); });
+        public List<Account> Accounts { get; set; }
+
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
+    }
+
+    public class Account
+    {
+        public int Id { get; set; }
+        public Currency Currency { get; set; }
+
+        public decimal Balance { get; set; }
+    }
+
+    public class Currency
+    {
+        public string Token { get; set; }
+    }
+
+    public class ShowcaseContext : DbContext
+    {
+        public DbSet<Person> People { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=./database.db");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person>(builder =>
+            {
+                builder.HasKey(a => a.Id);
+                builder.HasMany(a => a.Wallets).WithOne(a => a.Person);
+            });
+
+            modelBuilder.Entity<Currency>(builder => { builder.HasKey(a => a.Token); });
+        }
     }
 }

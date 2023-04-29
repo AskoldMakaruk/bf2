@@ -1,4 +1,8 @@
-﻿public static class ToolTypes
+﻿using EconomicSimulator.Lib.Entities;
+
+namespace EconomicSimulator.Lib.Types;
+
+public static class ToolTypes
 {
     public static readonly ToolType water_bucker = ("water_bucket", new List<IOItem>());
     public static readonly ToolType wheal_saw = ("wheal_saw", new List<IOItem>());

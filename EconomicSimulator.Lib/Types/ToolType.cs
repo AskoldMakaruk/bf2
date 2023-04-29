@@ -1,5 +1,6 @@
-﻿using EconomicSimulator;
-using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Entities;
+
+namespace EconomicSimulator.Lib.Types;
 
 public readonly record struct ToolType(ItemType Type, IEnumerable<IOItem> Recipe)
 {

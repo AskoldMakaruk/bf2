@@ -1,4 +1,4 @@
-﻿namespace EconomicSimulator;
+﻿namespace EconomicSimulator.Lib.Types;
 
 public static class WorkerNeedTypes
 {

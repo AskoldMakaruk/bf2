@@ -1,4 +1,4 @@
-﻿using EconomicSimulator;
+﻿namespace EconomicSimulator.Lib.Types;
 
 public readonly record struct FacilityType(string Name,
     string Description,

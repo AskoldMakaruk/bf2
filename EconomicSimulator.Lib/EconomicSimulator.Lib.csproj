@@ -8,6 +8,8 @@
 
     <ItemGroup>
         <PackageReference Include="Geolocation" Version="1.2.1" />
+        <PackageReference Include="Microsoft.Spatial" Version="7.15.0" />
         <PackageReference Include="ScottPlot" Version="5.0.4-beta" />
+        <PackageReference Include="SunCalcNet" Version="1.2.2" />
     </ItemGroup>
 </Project>

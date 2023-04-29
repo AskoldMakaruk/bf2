@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+
+namespace BF2;
 
 public class HostedBot : IHostedService
 {
@@ -29,7 +32,8 @@ public class HostedBot : IHostedService
             return;
         }
 
-        await endpoint.Run(_serviceProvider, update, arg1);
+        using var scope = _serviceProvider.CreateScope();
+        await endpoint.Run(scope.ServiceProvider, update, arg1);
     }
 
     private async Task PollingErrorHandler(ITelegramBotClient arg1, Exception arg2, CancellationToken arg3)

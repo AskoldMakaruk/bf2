@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
-using WorkerService1;
 
 namespace BF2;
 

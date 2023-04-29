@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
-using WorkerService1;
+
+namespace BF2;
 
 public class EndpointCollection
 {

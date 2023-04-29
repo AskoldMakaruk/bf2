@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
-using SkiaSharp;
 
-namespace EconomicSimulator;
+namespace EconomicSimulator.Lib;
 
 public static class GameStats
 {

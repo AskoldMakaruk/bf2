@@ -1,5 +1,7 @@
 using Telegram.Bot.Types;
 
+namespace BF2;
+
 public interface IEndpointAttribute
 {
     public bool IsSuitable(Update update);

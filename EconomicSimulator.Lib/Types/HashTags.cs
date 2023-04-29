@@ -1,5 +1,4 @@
-﻿using EconomicSimulator;
-using EconomicSimulator.Types;
+﻿namespace EconomicSimulator.Lib.Types;
 
 public static class HashTags
 {

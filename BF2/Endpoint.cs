@@ -1,9 +1,8 @@
 using System.Reflection;
-using BF2;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace WorkerService1;
+namespace BF2;
 
 public class Endpoint
 {

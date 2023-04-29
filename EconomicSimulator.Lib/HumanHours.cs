@@ -1,5 +1,7 @@
 ﻿using System.Numerics;
 
+namespace EconomicSimulator.Lib;
+
 public readonly record struct HumanHours(decimal Value) : IAdditionOperators<HumanHours, HumanHours, HumanHours>
 {
     public static implicit operator HumanHours(decimal value) => new HumanHours(value);

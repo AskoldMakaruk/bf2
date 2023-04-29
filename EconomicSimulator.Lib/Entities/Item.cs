@@ -1,4 +1,6 @@
-﻿using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Types;
+
+namespace EconomicSimulator.Lib.Entities;
 
 public class Item
 {

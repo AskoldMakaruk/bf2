@@ -1,4 +1,5 @@
-﻿using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Properties;
+using EconomicSimulator.Lib.Types;
 
 namespace EconomicSimulator.Lib.Entities;
 

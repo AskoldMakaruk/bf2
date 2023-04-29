@@ -1,6 +1,6 @@
 ﻿using BF2;
 
-namespace WorkerService1.PhoneBot;
+namespace WorkerService1.PhoneBot.Controllers;
 
 public class ShotController : BotController
 {

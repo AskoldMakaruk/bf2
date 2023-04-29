@@ -1,6 +1,7 @@
-﻿using EconomicSimulator.Interfaces;
-using EconomicSimulator.Lib.Exchange;
-using EconomicSimulator.Types;
+﻿using EconomicSimulator.Lib.Exchange;
+using EconomicSimulator.Lib.Interfaces;
+using EconomicSimulator.Lib.Properties;
+using EconomicSimulator.Lib.Types;
 
 namespace EconomicSimulator.Lib.Entities;
 
