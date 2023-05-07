@@ -62,6 +62,8 @@ public class OperationalDepartment : Department
         {
             return false;
         }
+        
+        
 
         if (!TrySatisfyJobRequirements(type)) return false;
 

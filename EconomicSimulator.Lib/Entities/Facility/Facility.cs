@@ -1,5 +1,5 @@
-﻿using EconomicSimulator.Lib.Exchange;
-using EconomicSimulator.Lib.Interfaces;
+﻿using EconomicSimulator.Lib.Interfaces;
+using EconomicSimulator.Lib.Networks.Exchange;
 using EconomicSimulator.Lib.Properties;
 using EconomicSimulator.Lib.Types;
 
@@ -12,7 +12,7 @@ public class Facility : ITrading, IFacility
     public FacilityType Type { get; set; }
     public Location Location { get; set; }
     public Dictionary<ItemType, HumanHours> Prices { get; set; }
-    public Inventory Inventory { get; set; }
+    public Inventory Inventory { get; }
 
     public List<JobType> JobTypes { get; set; } = new();
 
@@ -27,6 +27,17 @@ public class Facility : ITrading, IFacility
         HrDepartment = new HrDepartment(this);
         AccountantDepartment = new AccountantDepartment(this);
         OperationalDepartment = new OperationalDepartment(this);
+        Inventory = new Inventory();
+    }
+
+    public Facility(Facility facility) : this()
+    {
+        Id = facility.Id;
+        Name = facility.Name;
+        Type = facility.Type;
+        Location = facility.Location;
+        Prices = new(facility.Prices);
+        Balance = facility.Balance;
     }
 
     public void AddRandomJobPost()

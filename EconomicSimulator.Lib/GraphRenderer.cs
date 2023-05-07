@@ -1,4 +1,4 @@
-﻿using EconomicSimulator.Lib.Exchange;
+﻿using EconomicSimulator.Lib.Networks.Exchange;
 using ScottPlot;
 
 namespace EconomicSimulator.Lib;

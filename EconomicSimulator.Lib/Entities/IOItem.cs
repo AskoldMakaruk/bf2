@@ -8,4 +8,9 @@ public readonly record struct IOItem(ItemType Item, int Count)
     public static implicit operator IOItem(KeyValuePair<ItemType, int> tuple) => new IOItem(tuple.Key, tuple.Value);
 
     public decimal GetPrice(HumanHours price) => Count * price;
+
+    public override string ToString()
+    {
+        return $"{Item?.Name} x{Count}";
+    }
 }

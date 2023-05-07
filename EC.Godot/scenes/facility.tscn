@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://qkpue2gw5d5i"]
+
+[ext_resource type="Script" path="res://scripts/FacilityListNode.cs" id="1_lbxbp"]
+[ext_resource type="PackedScene" uid="uid://c1ctfycehdy2j" path="res://scenes/inventory.tscn" id="2_d0u2r"]
+[ext_resource type="Theme" uid="uid://08pp7uv68wsb" path="res://new_theme.tres" id="2_ifnr3"]
+
+[node name="Facility" type="PanelContainer" node_paths=PackedStringArray("NameLabel", "InventoryContainer")]
+offset_right = 117.0
+offset_bottom = 27.0
+script = ExtResource("1_lbxbp")
+NameLabel = NodePath("MarginContainer/VBoxContainer/Name")
+InventoryContainer = NodePath("MarginContainer/VBoxContainer/MarginContainer2/Inventory")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Facility Name"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_ifnr3")
+
+[node name="Inventory" parent="MarginContainer/VBoxContainer/MarginContainer2" instance=ExtResource("2_d0u2r")]
+layout_mode = 2

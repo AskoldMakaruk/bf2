@@ -2,9 +2,9 @@ using System.Numerics;
 
 namespace EconomicSimulator.Lib;
 
-public class Counter<TKey, TAddable> : Dictionary<TKey, TAddable> where TAddable : IAdditionOperators<TAddable, TAddable, TAddable> where TKey : notnull
+public class Counter<TKey> : Dictionary<TKey, HumanHours> where TKey : notnull
 {
-    public Counter(IDictionary<TKey, TAddable> input) : base(input)
+    public Counter(IDictionary<TKey, HumanHours> input) : base(input)
     {
     }
 
@@ -12,7 +12,7 @@ public class Counter<TKey, TAddable> : Dictionary<TKey, TAddable> where TAddable
     {
     }
 
-    public TAddable? Get(TKey key)
+    public HumanHours? Get(TKey key)
     {
         if (TryGetValue(key, out var value))
         {
@@ -23,7 +23,7 @@ public class Counter<TKey, TAddable> : Dictionary<TKey, TAddable> where TAddable
     }
 
 
-    public void AddForEach(TAddable addable)
+    public void AddForEach(HumanHours addable)
     {
         foreach (var key in Keys)
         {
@@ -31,7 +31,7 @@ public class Counter<TKey, TAddable> : Dictionary<TKey, TAddable> where TAddable
         }
     }
 
-    public void Add(TKey key, TAddable value)
+    public new void Add(TKey key, HumanHours value)
     {
         if (TryAdd(key, value))
         {
@@ -41,18 +41,23 @@ public class Counter<TKey, TAddable> : Dictionary<TKey, TAddable> where TAddable
         this[key] = value + this[key]!;
     }
 
-    public new TAddable? this[TKey key]
+    public new HumanHours? this[TKey key]
     {
         get => TryGetValue(key, out var value) ? value : default;
         set
         {
+            if (value == null)
+            {
+                return;
+            }
+
             if (ContainsKey(key))
             {
-                base[key] = value;
+                base[key] = value.Value;
             }
             else
             {
-                Add(key, value);
+                Add(key, value.Value);
             }
         }
     }

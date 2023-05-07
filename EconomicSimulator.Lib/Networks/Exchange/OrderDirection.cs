@@ -1,4 +1,4 @@
-﻿namespace EconomicSimulator.Lib.Exchange;
+﻿namespace EconomicSimulator.Lib.Networks.Exchange;
 
 public enum OrderDirection
 {

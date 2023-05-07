@@ -1,6 +1,6 @@
 ﻿using EconomicSimulator.Lib.Types;
 
-namespace EconomicSimulator.Lib.Exchange;
+namespace EconomicSimulator.Lib.Networks.Exchange;
 
 public class Order
 {

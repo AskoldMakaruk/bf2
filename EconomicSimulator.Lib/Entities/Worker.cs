@@ -1,5 +1,6 @@
-﻿using EconomicSimulator.Lib.Exchange;
-using EconomicSimulator.Lib.Interfaces;
+﻿using EconomicSimulator.Lib.Interfaces;
+using EconomicSimulator.Lib.Networks;
+using EconomicSimulator.Lib.Networks.Exchange;
 using EconomicSimulator.Lib.Properties;
 using EconomicSimulator.Lib.Types;
 
@@ -50,18 +51,18 @@ public class Worker : ITrading
             Status = WorkerStatus.Idle;
         }
 
-        if (Status == WorkerStatus.SeekingWork)
+        if (Status != WorkerStatus.Working)
         {
-            if (Map.GetJobPost(new ItemRequirements(GetRequirements())).FirstOrDefault(a => a.Facility.TryHire(this, a)) is { } post)
+            if (JobNetwork.GetJobPost(new ItemRequirements(GetRequirements())).FirstOrDefault(a => a.Facility.TryHire(this, a)) is { } post)
             {
                 Status = WorkerStatus.Working;
             }
         }
 
-        if (Status == WorkerStatus.SatisfyNeed)
-        {
-            Status = WorkerStatus.SeekingWork;
-        }
+        // if (Status == WorkerStatus.SatisfyNeed)
+        // {
+        //     Status = WorkerStatus.SeekingWork;
+        // }
     }
 
     protected bool Equals(Worker other)
@@ -88,7 +89,7 @@ public class Worker : ITrading
     public Location Location { get; set; }
 
     // todo determine prices for worker
-    public Dictionary<ItemType, HumanHours> Prices { get; } = new Counter<ItemType, HumanHours>();
+    public Dictionary<ItemType, HumanHours> Prices { get; } = new Counter<ItemType>();
     public Inventory Inventory { get; set; }
     public HumanHours Balance { get; set; }
 

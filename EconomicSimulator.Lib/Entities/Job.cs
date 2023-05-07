@@ -4,7 +4,7 @@ namespace EconomicSimulator.Lib.Entities;
 
 public class Job
 {
-    private Counter<Worker, HumanHours> _humanHoursMap = new();
+    private Counter<Worker> _humanHoursMap = new();
 
     public Job(JobType type)
     {
@@ -16,6 +16,7 @@ public class Job
     public JobType Type { get; set; }
     public HumanHours CurrentProgress { get; set; }
     private List<Worker> Workers { get; set; } = new();
+    private List<Tool> Tools { get; set; }
 
     public bool IsProducing(ItemType type)
     {
@@ -73,12 +74,11 @@ public class Job
             })
             .ToList());
         CurrentProgress = 0;
-        _humanHoursMap = new Counter<Worker, HumanHours>(Workers.ToDictionary(a => a, a => a.Balance));
+        _humanHoursMap = new Counter<Worker>(Workers.ToDictionary(a => a, a => a.Balance));
         return true;
     }
 
     public bool IsWorkerFree(Worker wo) => !Workers.Contains(wo);
 }
-
 
 public record JobResult(bool IsOk, Dictionary<Worker, HumanHours> ProgressMade, List<IOItem> Products);

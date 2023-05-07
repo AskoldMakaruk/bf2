@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bftlxxtrjrfij"]
+
+[ext_resource type="Script" path="res://scripts/FormPopup.cs" id="1_2363r"]
+[ext_resource type="PackedScene" uid="uid://vri7kjwpcf6x" path="res://scenes/form.tscn" id="2_j1bvq"]
+
+[node name="FormPopup" type="PopupPanel"]
+title = "Asafsfas"
+position = Vector2i(376, 288)
+size = Vector2i(673, 198)
+mode = 3
+visible = true
+borderless = false
+always_on_top = true
+script = ExtResource("1_2363r")
+
+[node name="Form" parent="." instance=ExtResource("2_j1bvq")]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 669.0
+offset_bottom = 194.0

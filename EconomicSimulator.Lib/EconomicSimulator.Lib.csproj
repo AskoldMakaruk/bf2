@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Godot.NET.Sdk/4.0.2">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -11,5 +11,9 @@
         <PackageReference Include="Microsoft.Spatial" Version="7.15.0" />
         <PackageReference Include="ScottPlot" Version="5.0.4-beta" />
         <PackageReference Include="SunCalcNet" Version="1.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Decisions\Worker\" />
     </ItemGroup>
 </Project>

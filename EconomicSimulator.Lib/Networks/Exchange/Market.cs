@@ -1,7 +1,7 @@
 ﻿using EconomicSimulator.Lib.Entities;
 using EconomicSimulator.Lib.Types;
 
-namespace EconomicSimulator.Lib.Exchange;
+namespace EconomicSimulator.Lib.Networks.Exchange;
 
 public static class Market
 {

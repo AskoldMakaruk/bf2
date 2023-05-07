@@ -8,38 +8,36 @@ public class StartStatic
 {
     public static void Start()
     {
-        var well1 = new Facility()
+        var reef = new Facility()
         {
             Id = Guid.NewGuid(),
-            Inventory = new Inventory(),
             Location = new Location(1, 1),
-            Name = "Water Well 1",
-            Type = "water_well",
+            Name = "Iron Reef",
+            Type = "iron_reef",
             Prices = new Dictionary<ItemType, HumanHours>()
             {
-                { "water", 8 }
-            },
-            JobTypes =
-            {
-                "collect_water_w_bucket",
-            }
-        };
-
-        var farm1 = new Facility()
-        {
-            Id = Guid.NewGuid(),
-            Inventory = new Inventory(),
-            Location = new Location(1, 1.0001),
-            Name = "Farm 1",
-            Type = "ground_farm",
-            Prices = new Dictionary<ItemType, HumanHours>()
-            {
-                { "wheat", 40 },
+                { "iron_ore", 40 },
                 { "water", 9 }
             },
             JobTypes =
             {
-                JobTypes.CollectIronOre
+                "pickup_iron_ore",
+            }
+        };
+
+        var stone_query = new Facility()
+        {
+            Id = Guid.NewGuid(),
+            Location = new Location(1, 1.0001),
+            Name = "Farm 1",
+            Type = "stone_query",
+            Prices = new Dictionary<ItemType, HumanHours>()
+            {
+                { "stone", 20 }
+            },
+            JobTypes =
+            {
+                JobTypes.CollectStone
             },
             Workers = new List<Worker>(),
             Balance = 1000m,
@@ -47,31 +45,22 @@ public class StartStatic
 
         var facilities = new[]
         {
-            well1,
-            farm1
+            reef,
+            stone_query
         };
 
-        Map.Facilities = facilities.ToList();
-        Map.Workers = new[]
+        Game.Facilities = facilities.ToList();
+        Game.Workers = new[]
             {
                 "KOK", "balls", "Sir de La CUm", "Cumbotron 4000", "la fishe un chocolate", "hui", "pisun",
                 "joker", "totoro", "kupalnik", "kokroach", "oposum", "openheimer", "chad", "broski", "lemon",
                 "dick", "penis"
             }.Select(CreateWorker)
             .ToList();
-
+        return;
         while (true)
         {
-            Map.ProcessWorkers();
-            Map.ProcessFacilities();
-            // Console.WriteLine(map.Report());
-            Game.Time.Tick();
-            if (Game.Time.TotalTicks % 1000 == 0)
-            {
-                // GameStats.SavePng();
-            }
-
-            GameStats.PostFrames().Wait();
+            Run();
         }
 
         Worker CreateWorker(string name)
@@ -90,5 +79,10 @@ public class StartStatic
                 Balance = 0
             };
         }
+    }
+
+    public static void Run()
+    {
+        Game.Process();
     }
 }

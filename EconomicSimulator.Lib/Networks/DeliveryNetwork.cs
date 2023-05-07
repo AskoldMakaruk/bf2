@@ -1,6 +1,6 @@
 ﻿using EconomicSimulator.Lib.Entities;
 
-namespace EconomicSimulator.Lib;
+namespace EconomicSimulator.Lib.Networks;
 
 public class DeliveryNetwork
 {

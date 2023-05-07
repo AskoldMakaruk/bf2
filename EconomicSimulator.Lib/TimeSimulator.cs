@@ -1,8 +1,5 @@
 namespace EconomicSimulator.Lib;
 
-/// <summary>
-/// ChellGPT be blessed your soul
-/// </summary>
 public class TimeSimulator
 {
     private DateTime _currentTime;
