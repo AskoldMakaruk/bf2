@@ -44,6 +44,12 @@ public class FacilityBuilder
         return this;
     }
 
+    public FacilityBuilder WithCountry(Country country)
+    {
+        _facility.CountryId = country.Id;
+        return this;
+    }
+
 
     public Facility Build()
     {

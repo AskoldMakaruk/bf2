@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://xqsvk0aoh0k6"]
+
+[ext_resource type="Script" path="res://scripts/WorkerListNode.cs" id="1_70ufr"]
+[ext_resource type="PackedScene" uid="uid://c1ctfycehdy2j" path="res://scenes/inventory.tscn" id="2_pb4pa"]
+
+[node name="Worker" type="PanelContainer" node_paths=PackedStringArray("NameLabel", "InventoryContainer")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_70ufr")
+NameLabel = NodePath("Panel/Body/MarginContainer/NameLabel")
+InventoryContainer = NodePath("Panel/Body/Inventory")
+
+[node name="Panel" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Body" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="MarginContainer" type="CenterContainer" parent="Panel/Body"]
+layout_mode = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="Panel/Body/MarginContainer"]
+layout_mode = 2
+text = "PLACE FOR NAME"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Inventory" parent="Panel/Body" instance=ExtResource("2_pb4pa")]
+layout_mode = 2

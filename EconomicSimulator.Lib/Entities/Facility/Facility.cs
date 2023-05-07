@@ -8,6 +8,7 @@ namespace EconomicSimulator.Lib.Entities;
 public class Facility : ITrading, IFacility
 {
     public Guid Id { get; set; }
+    public Guid CountryId { get; set; }
     public string Name { get; set; }
     public FacilityType Type { get; set; }
     public Location Location { get; set; }
@@ -38,6 +39,7 @@ public class Facility : ITrading, IFacility
         Location = facility.Location;
         Prices = new(facility.Prices);
         Balance = facility.Balance;
+        CountryId = facility.CountryId;
     }
 
     public void AddRandomJobPost()

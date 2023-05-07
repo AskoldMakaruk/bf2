@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtythoog8qwv0"]
+
+[ext_resource type="Script" path="res://scripts/Main.cs" id="1_keguv"]
+[ext_resource type="Script" path="res://scripts/WorkerList.cs" id="2_2rswg"]
+[ext_resource type="Theme" uid="uid://08pp7uv68wsb" path="res://new_theme.tres" id="2_bvkv1"]
+[ext_resource type="Script" path="res://scripts/FacilityList.cs" id="3_dpp3y"]
+
+[node name="Node2D" type="PanelContainer"]
+offset_right = 1145.0
+offset_bottom = 648.0
+script = ExtResource("1_keguv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("2_bvkv1")
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 19
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Create Country"
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "Button 2
+"
+
+[node name="HSplitContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Workers" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_bvkv1")
+script = ExtResource("2_2rswg")
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/ScrollContainer2"]
+layout_mode = 2
+
+[node name="Facilities" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/ScrollContainer2/MarginContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_bvkv1")
+script = ExtResource("3_dpp3y")
