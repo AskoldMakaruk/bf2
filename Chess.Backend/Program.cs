@@ -1,11 +1,17 @@
+using Chess.Backend.Repositories;
+using Chess.Backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<ChestContext>(options => options
+        .UseNpgsql(builder.Configuration
+        .GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<UserRepository>();
 
 var app = builder.Build();
 
