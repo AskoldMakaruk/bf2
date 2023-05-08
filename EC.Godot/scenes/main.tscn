@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwe1qpbare7f2"]
+[gd_scene load_steps=6 format=3 uid="uid://bwe1qpbare7f2"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_keguv"]
 [ext_resource type="Script" path="res://scripts/WorkerList.cs" id="2_2rswg"]
 [ext_resource type="Theme" uid="uid://08pp7uv68wsb" path="res://new_theme.tres" id="2_bvkv1"]
 [ext_resource type="Script" path="res://scripts/FacilityList.cs" id="3_dpp3y"]
 [ext_resource type="PackedScene" path="res://addons/easy_charts/examples/bar_chart/Control.tscn" id="5_6v2nl"]
-[ext_resource type="PackedScene" uid="uid://bw5j0ijkkwtg5" path="res://addons/easy_charts/control_charts/chart.tscn" id="6_5fsh4"]
 
 [node name="Node2D" type="PanelContainer"]
 offset_right = 1913.0
@@ -84,24 +83,3 @@ script = ExtResource("3_dpp3y")
 [node name="Control" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer" instance=ExtResource("5_6v2nl")]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/Control/VBoxContainer2"]
-layout_mode = 2
-text = "Start Relatime Plotting"
-
-[node name="Chart" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/Control/VBoxContainer2" instance=ExtResource("6_5fsh4")]
-layout_mode = 2
-margin_top = 44.0
-margin_right = 1024.0
-margin_bottom = 577.0
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/HBoxContainer/Control/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Try to scale the window!"
