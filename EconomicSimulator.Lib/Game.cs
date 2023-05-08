@@ -9,6 +9,7 @@ public static class Game
 
     public static List<Facility> Facilities { get; set; }
     public static List<Worker> Workers { get; set; }
+    public static List<Country> Countries { get; set; }
 
 
     public static void ProcessWorkers()

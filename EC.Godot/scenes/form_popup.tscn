@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bftlxxtrjrfij"]
+[gd_scene load_steps=4 format=3 uid="uid://bftlxxtrjrfij"]
 
 [ext_resource type="Script" path="res://scripts/FormPopup.cs" id="1_2363r"]
 [ext_resource type="PackedScene" uid="uid://vri7kjwpcf6x" path="res://scenes/form.tscn" id="2_j1bvq"]
+[ext_resource type="Theme" uid="uid://08pp7uv68wsb" path="res://new_theme.tres" id="3_s74m4"]
 
 [node name="FormPopup" type="PopupPanel"]
 title = "Asafsfas"
@@ -18,3 +19,4 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = 669.0
 offset_bottom = 194.0
+theme = ExtResource("3_s74m4")

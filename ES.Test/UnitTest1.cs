@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
-using EconomicSimulator.Lib.Exchange;
+using EconomicSimulator.Lib.Networks.Exchange;
 using FluentAssertions;
 
 namespace ES.Test;

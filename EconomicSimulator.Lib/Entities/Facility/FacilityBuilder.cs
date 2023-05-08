@@ -8,6 +8,14 @@ namespace EconomicSimulator.Lib.Entities;
 /// </summary>
 public class FacilityBuilder
 {
+    public Facility CreateDefault()
+    {
+        return new FacilityBuilder("соска")
+            .WithName("Твоя мать")
+            .WithJobTypes(new List<JobType>() { "сосать" })
+            .Build();
+    }
+
     private readonly Facility _facility;
 
     public FacilityBuilder(FacilityType type)
@@ -53,6 +61,11 @@ public class FacilityBuilder
 
     public Facility Build()
     {
+        if (_facility.Name == null)
+        {
+            throw new InvalidOperationException("Name is not set");
+        }
+
         return new(_facility);
     }
 }

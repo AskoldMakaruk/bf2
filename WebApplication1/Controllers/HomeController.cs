@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication1.Controllers;
 
@@ -13,19 +11,15 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+    private static int _count = 0;
 
-    public IActionResult Privacy()
+    [HttpGet("count/{multiplier:int}")]
+    public IActionResult Count([FromRoute] int multiplier)
     {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        _logger.LogInformation("Count called with multiplier {multiplier}", multiplier);
+        return Json(new
+        {
+            count = _count++ * multiplier
+        });
     }
 }
