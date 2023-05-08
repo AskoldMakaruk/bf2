@@ -1,8 +1,8 @@
 ﻿using Database.Showcase;
-using Microsoft.EntityFrameworkCore;
+using loxusing Microsoft.EntityFrameworkCore;
 
 var context = new ShowcaseContext();
-context.Database.EnsureDeleted();
+
 context.Database.EnsureCreated();
 
 context.People.Add(new Person()
