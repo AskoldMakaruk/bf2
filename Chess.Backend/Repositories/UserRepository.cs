@@ -1,14 +1,15 @@
 ﻿using Chess.Backend.Models;
 using Chess.Backend.Services;
+using Chess.Backend.Views;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chess.Backend.Repositories;
 
 public class UserRepository
 {
-    private readonly ChestContext _context;
+    private readonly ChessContext _context;
 
-    public UserRepository(ChestContext context)
+    public UserRepository(ChessContext context)
     {
         _context = context;
     }
@@ -17,6 +18,12 @@ public class UserRepository
         _context.Users.Add(usermodel);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<User?> LoginUser(UserCreateView username)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Name == username.Name && u.PasswordHash == username.PasswordHash);
+    }
+    
 
     public async Task<bool> UserExists(string username)
     {
