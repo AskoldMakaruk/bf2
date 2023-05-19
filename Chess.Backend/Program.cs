@@ -1,3 +1,4 @@
+using Chess.Backend.Middlewares;
 using Chess.Backend.Repositories;
 using Chess.Backend.Services;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ChestContext>(options => options
+builder.Services.AddDbContext<ChessContext>(options => options
         .UseNpgsql(builder.Configuration
         .GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<UserRepository>();
@@ -22,6 +23,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<LoginMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 
