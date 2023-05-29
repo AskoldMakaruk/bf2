@@ -39,23 +39,25 @@ custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 split_offset = 700
 
-[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/MarginContainer/HSplitContainer" node_paths=PackedStringArray("Console")]
+[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/MarginContainer/HSplitContainer" node_paths=PackedStringArray("Console", "ImagePanel")]
 layout_mode = 2
 theme_override_colors/background_color = Color(0.117647, 0.129412, 0.152941, 1)
 theme_override_colors/completion_background_color = Color(1, 1, 1, 0.639216)
 theme_override_colors/caret_background_color = Color(1, 1, 1, 0.482353)
 theme_override_fonts/font = ExtResource("4_usugr")
 theme_override_font_sizes/font_size = 16
-text = "нехай ім'я є \"дегніс\".
-нехай вік є 2 * (3 + 4). -- 14  
-{ 
-    вік є вік + 1. -- 15
-    нехай вік є 3.
-    нехай ім'я є ім'я + \" \" + (вік + 1). -- назва 16
-    друкувати ім'я.
-}
-вік є вік + -2. друкувати вік. друкувати ім'я.
-"
+text = "нехай вік є 0.
+якщо вік більше 1 
+то друкувати \"1 або більше\".
+інакше вік є 3.
+
+друкувати \"вік дорівню \" + вік.
+
+поки вік менше 10 то:
+     друкувати вік.
+     вік є вік +1!!
+
+друкувати \"тепер вік це \" + вік."
 drag_and_drop_selection_enabled = false
 highlight_all_occurrences = true
 highlight_current_line = true
@@ -73,6 +75,7 @@ auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("1_7vvam")
 Console = NodePath("../PanelContainer/VSplitContainer/Console")
+ImagePanel = NodePath("../PanelContainer/VSplitContainer/Panel")
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/HSplitContainer"]
 layout_mode = 2

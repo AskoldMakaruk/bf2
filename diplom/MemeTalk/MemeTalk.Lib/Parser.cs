@@ -1,17 +1,16 @@
-﻿using System.Globalization;
-using MemeTalk.Lib.AST;
+﻿using MemeTalk.Lib.AST;
 
 namespace MemeTalk.Lib;
 
 public class Parser
 {
-    public List<Token> Tokens { get; private set; }
-    public int Position { get; private set; }
-
     public Parser(List<Token> tokens)
     {
         Tokens = tokens;
     }
+
+    public List<Token> Tokens { get; private set; }
+    public int Position { get; private set; }
 
     public List<AstStatement> Parse()
     {
@@ -130,7 +129,7 @@ public class Parser
             statements.Add(Declaration()!);
         }
 
-        // Consume(TokenType.BANG, "Expect '!' after block.");
+        Consume(TokenType.BANG, "Expect '!' after block.");
         return new AstStatement.Block(statements);
     }
 

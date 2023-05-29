@@ -1,5 +1,4 @@
 ﻿using BF2;
-using EconomicSimulator.Lib;
 using EconomicSimulator.Lib.Types;
 using Neo4j.Driver;
 using Telegram.Bot;
@@ -102,7 +101,24 @@ foreach (var facilityType in FacilityTypes._facilityTypes)
             .ExecuteWithoutResultsAsync();
     }
 }
+
 // StartStatic.Start();
+public class Neo4jContext
+{
+    public Neo4jContext()
+    {
+    }
+}
+
+public class HasAttribute : Attribute
+{
+    public readonly string Name;
+
+    public HasAttribute(string name)
+    {
+        Name = name;
+    }
+}
 
 // content + buttons = view
 public class StartController : BotController

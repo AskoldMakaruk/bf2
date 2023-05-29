@@ -1,22 +1,22 @@
 using Godot;
-using System;
 using Godot.Collections;
 using MemeTalk.Lib;
 
 public partial class Editor : CodeEdit
 {
     [Export()] public EditorConsole Console;
+    [Export] public Panel ImagePanel;
 
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        Text = @"нехай вік є 0.
-        якщо вік більше 1 
-        то друкувати ""1 або більше"".
-            інакше вік є 3.
-
-            друкувати вік.";
+//         Text = @"нехай вік є 0.
+//         якщо вік більше 1 
+//         то друкувати ""1 або більше"".
+//             інакше вік є 3.
+//
+//             друкувати вік.";
 
         DelimiterComments = new Array<string>(new[]
         {
@@ -84,6 +84,7 @@ public partial class Editor : CodeEdit
 
     public void OnButtonPressed()
     {
+        Console.Clear();
         var lang = new MemeTalkLang
         {
             Interpreter =
