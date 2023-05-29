@@ -4,22 +4,22 @@ namespace MemeTalk.Lib.AST;
 
 public class AstPrinter : AstExpression.IExpressionVisitor<string>
 {
-    public string Print(AstExpression expression)
+    public string? Print(AstExpression expression)
     {
-        return expression.Accept<AstPrinter, string>();
+        return expression.Accept<string>(this);
     }
 
-    public static string VisitAssignExpr(AstExpression.Assign expr)
+    public string VisitAssignExpr(AstExpression.Assign expr)
     {
         throw new NotImplementedException();
     }
 
-    public static string VisitBinaryExpr(AstExpression.Binary expr)
+    public string VisitBinaryExpr(AstExpression.Binary expr)
     {
         return Parenthesize(expr.Oper.Lexeme, expr.Left, expr.Right);
     }
 
-    public static string VisitCallExpr(AstExpression.Call expr)
+    public string VisitCallExpr(AstExpression.Call expr)
     {
         var arguments = new List<AstExpression>()
         {
@@ -29,59 +29,59 @@ public class AstPrinter : AstExpression.IExpressionVisitor<string>
         return Parenthesize("call", arguments.ToArray());
     }
 
-    public static string VisitGetExpr(AstExpression.Get expr)
+    public string VisitGetExpr(AstExpression.Get expr)
     {
         throw new NotImplementedException();
     }
 
-    public static string VisitGroupingExpr(AstExpression.Grouping expr)
+    public string VisitGroupingExpr(AstExpression.Grouping expr)
     {
         return Parenthesize("group", expr.Expression);
     }
 
-    public static string VisitLiteralExpr(AstExpression.Literal expr)
+    public string VisitLiteralExpr(AstExpression.Literal expr)
     {
         return expr.Value == null ? "нічо" : expr.Value.ToString()!;
     }
 
-    public static string VisitLogicalExpr(AstExpression.Logical expr)
+    public string VisitLogicalExpr(AstExpression.Logical expr)
     {
         throw new NotImplementedException();
     }
 
-    public static string VisitSetExpr(AstExpression.Set expr)
+    public string VisitSetExpr(AstExpression.Set expr)
     {
         throw new NotImplementedException();
     }
 
-    public static string VisitSuperExpr(AstExpression.Super expr)
+    public string VisitSuperExpr(AstExpression.Super expr)
     {
         throw new NotImplementedException();
     }
 
-    public static string VisitThisExpr(AstExpression.This expr)
+    public string VisitThisExpr(AstExpression.This expr)
     {
         throw new NotImplementedException();
     }
 
-    public static string VisitUnaryExpr(AstExpression.Unary expr)
+    public string VisitUnaryExpr(AstExpression.Unary expr)
     {
         return Parenthesize(expr.Oper.Lexeme, expr.Right);
     }
 
-    public static string VisitVariableExpr(AstExpression.Variable expr)
+    public string VisitVariableExpr(AstExpression.Variable expr)
     {
         throw new NotImplementedException();
     }
 
-    private static string Parenthesize(string name, params AstExpression[] exprs)
+    private string Parenthesize(string name, params AstExpression[] exprs)
     {
         var builder = new StringBuilder();
         builder.Append('(').Append(name);
         foreach (var expr in exprs)
         {
             builder.Append(' ');
-            builder.Append(expr.Accept<AstPrinter, string>());
+            builder.Append(expr.Accept<string>(this));
         }
 
         builder.Append(')');

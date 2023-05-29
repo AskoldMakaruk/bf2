@@ -10,7 +10,7 @@ public class GenerateAst
         if (args.Length != 1)
         {
             Console.Error.WriteLine("Usage: generate_ast <output directory>");
-            Environment.Exit(64);
+            System.Environment.Exit(64);
         }
 
         var outputDir = args[0];

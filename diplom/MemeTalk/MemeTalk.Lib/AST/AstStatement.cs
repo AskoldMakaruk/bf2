@@ -2,17 +2,17 @@
 
 public abstract class AstStatement
 {
-    public interface IVisitor<TR>
+    public interface IStatementVisitor<TResult>
     {
-        TR VisitBlockStmt(Block stmt);
-        TR VisitClassStmt(Class stmt);
-        TR VisitExpressionStmt(Expression stmt);
-        TR VisitFunctionStmt(Function stmt);
-        TR VisitIfStmt(If stmt);
-        TR VisitPrintStmt(Print stmt);
-        TR VisitReturnStmt(Return stmt);
-        TR VisitVarStmt(Var stmt);
-        TR VisitWhileStmt(While stmt);
+        TResult VisitBlockStmt(Block stmt);
+        TResult VisitClassStmt(Class stmt);
+        TResult VisitExpressionStmt(Expression stmt);
+        TResult VisitFunctionStmt(Function stmt);
+        TResult VisitIfStmt(If stmt);
+        TResult VisitPrintStmt(Print stmt);
+        TResult VisitReturnStmt(Return stmt);
+        TResult? VisitVarStmt(Var stmt);
+        TResult VisitWhileStmt(While stmt);
     }
 
     // Nested Stmt classes here...
@@ -20,154 +20,154 @@ public abstract class AstStatement
     {
         public Block(List<AstStatement> statements)
         {
-            this.statements = statements;
+            this.Statements = statements;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitBlockStmt(this);
+            return statementVisitor.VisitBlockStmt(this);
         }
 
-        public readonly List<AstStatement> statements;
+        public readonly List<AstStatement> Statements;
     }
 
     public class Class : AstStatement
     {
         public Class(Token name, AstExpression.Variable superclass, List<AstStatement.Function> methods)
         {
-            this.name = name;
-            this.superclass = superclass;
-            this.methods = methods;
+            this.Name = name;
+            this.Superclass = superclass;
+            this.Methods = methods;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitClassStmt(this);
+            return statementVisitor.VisitClassStmt(this);
         }
 
-        public readonly Token name;
-        public readonly AstExpression.Variable superclass;
-        public readonly List<AstStatement.Function> methods;
+        public readonly Token Name;
+        public readonly AstExpression.Variable Superclass;
+        public readonly List<AstStatement.Function> Methods;
     }
 
     public class Expression : AstStatement
     {
-        public Expression(AstExpression expression)
+        public Expression(AstExpression astExpression)
         {
-            this.expression = expression;
+            this.AstExpression = astExpression;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitExpressionStmt(this);
+            return statementVisitor.VisitExpressionStmt(this);
         }
 
-        public readonly AstExpression expression;
+        public readonly AstExpression AstExpression;
     }
 
     public class Function : AstStatement
     {
         public Function(Token name, List<Token> @params, List<AstStatement> body)
         {
-            this.name = name;
-            this.@params = @params;
-            this.body = body;
+            this.Name = name;
+            this.Params = @params;
+            this.Body = body;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitFunctionStmt(this);
+            return statementVisitor.VisitFunctionStmt(this);
         }
 
-        public readonly Token name;
-        public readonly List<Token> @params;
-        public readonly List<AstStatement> body;
+        public readonly Token Name;
+        public readonly List<Token> Params;
+        public readonly List<AstStatement> Body;
     }
 
     public class If : AstStatement
     {
-        public If(AstExpression condition, AstStatement thenBranch, AstStatement elseBranch)
+        public If(AstExpression condition, AstStatement thenBranch, AstStatement? elseBranch)
         {
-            this.condition = condition;
-            this.thenBranch = thenBranch;
-            this.elseBranch = elseBranch;
+            this.Condition = condition;
+            this.ThenBranch = thenBranch;
+            this.ElseBranch = elseBranch;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitIfStmt(this);
+            return statementVisitor.VisitIfStmt(this);
         }
 
-        public readonly AstExpression condition;
-        public readonly AstStatement thenBranch;
-        public readonly AstStatement elseBranch;
+        public readonly AstExpression Condition;
+        public readonly AstStatement ThenBranch;
+        public readonly AstStatement? ElseBranch;
     }
 
     public class Print : AstStatement
     {
-        public Print(AstExpression expression)
+        public Print(AstExpression astExpression)
         {
-            this.expression = expression;
+            this.AstExpression = astExpression;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitPrintStmt(this);
+            return statementVisitor.VisitPrintStmt(this);
         }
 
-        public readonly AstExpression expression;
+        public readonly AstExpression AstExpression;
     }
 
     public class Return : AstStatement
     {
         public Return(Token keyword, AstExpression value)
         {
-            this.keyword = keyword;
-            this.value = value;
+            this.Keyword = keyword;
+            this.Value = value;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitReturnStmt(this);
+            return statementVisitor.VisitReturnStmt(this);
         }
 
-        public readonly Token keyword;
-        public readonly AstExpression value;
+        public readonly Token Keyword;
+        public readonly AstExpression Value;
     }
 
     public class Var : AstStatement
     {
         public Var(Token name, AstExpression initializer)
         {
-            this.name = name;
-            this.initializer = initializer;
+            this.Name = name;
+            this.Initializer = initializer;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitVarStmt(this);
+            return statementVisitor.VisitVarStmt(this);
         }
 
-        public readonly Token name;
-        public readonly AstExpression initializer;
+        public readonly Token Name;
+        public readonly AstExpression? Initializer;
     }
 
     public class While : AstStatement
     {
         public While(AstExpression condition, AstStatement body)
         {
-            this.condition = condition;
-            this.body = body;
+            this.Condition = condition;
+            this.Body = body;
         }
 
-        public override R Accept<R>(IVisitor<R> visitor)
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
         {
-            return visitor.VisitWhileStmt(this);
+            return statementVisitor.VisitWhileStmt(this);
         }
 
-        public readonly AstExpression condition;
-        public readonly AstStatement body;
+        public readonly AstExpression Condition;
+        public readonly AstStatement Body;
     }
 
-    public abstract R Accept<R>(IVisitor<R> visitor);
+    public abstract TR Accept<TR>(IStatementVisitor<TR> statementVisitor);
 }

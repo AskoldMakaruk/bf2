@@ -1,0 +1,9 @@
+[gd_resource type="CodeHighlighter" format=3 uid="uid://bvfko1bsu33ry"]
+
+[resource]
+number_color = Color(0.647059, 0.807843, 0.6, 1)
+symbol_color = Color(0.780392, 0.862745, 0.713726, 1)
+keyword_colors = {
+"нехай": Color(0.776471, 0.470588, 0.866667, 1),
+"є": Color(0.337255, 0.713726, 0.760784, 1)
+}

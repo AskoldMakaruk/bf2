@@ -91,8 +91,9 @@ public class MainController : ControllerBase
     [HttpGet("lobby-list")]
     public async Task<LobbyListView> GetGameListAsync()
     {
-        var list = await _lobbyRepository.GetLobbyListAsync();
-        return list;
+        // var list = await _lobbyRepository.GetLobbyListAsync();
+        // return list;
+        return default;
     }
 
     [HttpGet("game-status")]

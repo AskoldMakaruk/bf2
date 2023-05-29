@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ffbae97b-aba5-4f0d-b3c7-2ebfb624b0de" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Editor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EditorConsole.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MemeTalk.Godot.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MemeTalk.Godot.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code_highlight.tres" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/editor_console.tscn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Bold.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-BoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-BoldItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraBold.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraBoldItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraLight.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraLightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ExtraLightItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Italic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Light.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-LightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-LightItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Medium.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-MediumItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-MediumItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Regular.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-SemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-SemiBold.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-SemiBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-SemiBoldItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-Thin.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ThinItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMono-ThinItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Bold.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-BoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-BoldItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraBold.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraBoldItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraLight.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraLightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ExtraLightItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Italic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Light.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-LightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-LightItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Medium.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-MediumItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-MediumItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Regular.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-SemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-SemiBold.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-SemiBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-SemiBoldItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-Thin.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ThinItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/ttf/JetBrainsMonoNL-ThinItalic.ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/variable/JetBrainsMono-Italic[wght].ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/variable/JetBrainsMono-Italic[wght].ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/variable/JetBrainsMono[wght].ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/variable/JetBrainsMono[wght].ttf.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Bold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Bold.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-BoldItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-BoldItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraBold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraBold.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraBoldItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraBoldItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraLight.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraLight.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraLightItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ExtraLightItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Italic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Italic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Light.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Light.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-LightItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-LightItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Medium.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Medium.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-MediumItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-MediumItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Regular.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-SemiBold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-SemiBold.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-SemiBoldItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-SemiBoldItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Thin.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-Thin.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ThinItalic.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/webfonts/JetBrainsMono-ThinItalic.woff2.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scope.mt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/start_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/start_icon.png.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/scope.mt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Environment.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Interpreter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/MemeTalkLang.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Chess.Backend/Controllers/MainController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Chess.Backend/Controllers/MainController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../bf2.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../../bf2.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mina.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/mina.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/MemeTalk.Console.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/MemeTalk.Console.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/main.mt" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Console/main.mt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstExpression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstExpression.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstPrinter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstPrinter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstStatement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstStatement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/GenerateAst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/GenerateAst.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Grammar.md" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Grammar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/MemeTalk.Lib.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/MemeTalk.Lib.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Parser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Parser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/TokenType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/TokenType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Tokenizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Tokenizer.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/125bcd92392d4f3dbb0c98d656e0d6ce405a00/30/026e06ca/Node.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9130a7d7b90e4cc2a2f73072b39ab02e3bae00/0a/b8402b5a/TextEdit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9130a7d7b90e4cc2a2f73072b39ab02e3bae00/84/ec821c23/CodeEdit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9130a7d7b90e4cc2a2f73072b39ab02e3bae00/bb/49991acb/CodeHighlighter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/MemeTalkLang.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2QEVCjbYww8YwNiZHe8umNQMa2l" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.26076832",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\askold\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\askold\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\askold\\AppData\\Local\\Symbols\\src"
+    ]
+  }
+}]]></component>
+  <component name="RunManager" selected=".NET Executable.Player">
+    <configuration name="Editor" type="RunExe" factoryName=".NET Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/godot4/Godot_v4.0.2-stable_mono_win64.exe" />
+      <option name="PROGRAM_PARAMETERS" value="--path &quot;$PROJECT_DIR$&quot; --editor" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="RUNTIME_TYPE" value="coreclr" />
+      <method v="2">
+        <option name="Build Solution" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Player" type="RunExe" factoryName=".NET Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/godot4/Godot_v4.0.2-stable_mono_win64.exe" />
+      <option name="PROGRAM_PARAMETERS" value="--path &quot;$PROJECT_DIR$&quot;" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="RUNTIME_TYPE" value="coreclr" />
+      <method v="2">
+        <option name="Build Solution" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ffbae97b-aba5-4f0d-b3c7-2ebfb624b0de" name="Changes" comment="" />
+      <created>1684918603149</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684918603149</updated>
+      <workItem from="1684918604309" duration="1043000" />
+      <workItem from="1684920508685" duration="7701000" />
+      <workItem from="1685269420423" duration="10607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.mt" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#MemeTalk.Lib.AST.AstExpression+Literal" memberName="Value" />
+        <PinnedItemInfo parentTag="Type#Godot.InputEventWithModifiers" memberName="CtrlPressed" />
+        <PinnedItemInfo parentTag="Type#Godot.InputEventKey" memberName="PhysicalKeycode" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>

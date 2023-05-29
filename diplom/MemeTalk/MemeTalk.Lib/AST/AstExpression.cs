@@ -2,23 +2,22 @@
 
 public abstract class AstExpression
 {
-    public abstract TResult Accept<TVisitor, TResult>()
-        where TVisitor : IExpressionVisitor<TResult>;
+    public abstract TResult? Accept<TResult>(IExpressionVisitor<TResult> visitor);
 
-    public interface IExpressionVisitor<TR>
+    public interface IExpressionVisitor<out TResult>
     {
-        static abstract TR VisitAssignExpr(Assign expr);
-        static abstract TR VisitBinaryExpr(Binary expr);
-        static abstract TR VisitCallExpr(Call expr);
-        static abstract TR VisitGetExpr(Get expr);
-        static abstract TR VisitGroupingExpr(Grouping expr);
-        static abstract TR VisitLiteralExpr(Literal expr);
-        static abstract TR VisitLogicalExpr(Logical expr);
-        static abstract TR VisitSetExpr(Set expr);
-        static abstract TR VisitSuperExpr(Super expr);
-        static abstract TR VisitThisExpr(This expr);
-        static abstract TR VisitUnaryExpr(Unary expr);
-        static abstract TR VisitVariableExpr(Variable expr);
+        TResult? VisitAssignExpr(Assign expr);
+        TResult? VisitBinaryExpr(Binary expr);
+        TResult? VisitCallExpr(Call expr);
+        TResult? VisitGetExpr(Get expr);
+        TResult? VisitGroupingExpr(Grouping expr);
+        TResult? VisitLiteralExpr(Literal expr);
+        TResult? VisitLogicalExpr(Logical expr);
+        TResult? VisitSetExpr(Set expr);
+        TResult? VisitSuperExpr(Super expr);
+        TResult? VisitThisExpr(This expr);
+        TResult? VisitUnaryExpr(Unary expr);
+        TResult? VisitVariableExpr(Variable expr);
     }
 
     // Nested Expr classes here...
@@ -30,9 +29,9 @@ public abstract class AstExpression
             this.Value = value;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult? Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitAssignExpr(this);
+            return visitor.VisitAssignExpr(this);
         }
 
         public readonly Token Name;
@@ -48,9 +47,9 @@ public abstract class AstExpression
             this.Right = right;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitBinaryExpr(this);
+            return visitor.VisitBinaryExpr(this);
         }
 
         public readonly AstExpression Left;
@@ -67,9 +66,9 @@ public abstract class AstExpression
             this.Arguments = arguments;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitCallExpr(this);
+            return visitor.VisitCallExpr(this);
         }
 
         public readonly AstExpression Callee;
@@ -85,9 +84,9 @@ public abstract class AstExpression
             this.Name = name;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitGetExpr(this);
+            return visitor.VisitGetExpr(this);
         }
 
         public readonly AstExpression Obj;
@@ -101,9 +100,9 @@ public abstract class AstExpression
             this.Expression = expression;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitGroupingExpr(this);
+            return visitor.VisitGroupingExpr(this);
         }
 
         public readonly AstExpression Expression;
@@ -116,9 +115,9 @@ public abstract class AstExpression
             this.Value = value;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitLiteralExpr(this);
+            return visitor.VisitLiteralExpr(this);
         }
 
         public readonly object? Value;
@@ -133,9 +132,9 @@ public abstract class AstExpression
             this.Right = right;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitLogicalExpr(this);
+            return visitor.VisitLogicalExpr(this);
         }
 
         public readonly AstExpression Left;
@@ -152,9 +151,9 @@ public abstract class AstExpression
             this.Value = value;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitSetExpr(this);
+            return visitor.VisitSetExpr(this);
         }
 
         public readonly AstExpression Obj;
@@ -170,9 +169,9 @@ public abstract class AstExpression
             this.Method = method;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitSuperExpr(this);
+            return visitor.VisitSuperExpr(this);
         }
 
         public readonly Token Keyword;
@@ -186,9 +185,9 @@ public abstract class AstExpression
             this.Keyword = keyword;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitThisExpr(this);
+            return visitor.VisitThisExpr(this);
         }
 
         public readonly Token Keyword;
@@ -202,9 +201,9 @@ public abstract class AstExpression
             this.Right = right;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitUnaryExpr(this);
+            return visitor.VisitUnaryExpr(this);
         }
 
         public readonly Token Oper;
@@ -218,9 +217,9 @@ public abstract class AstExpression
             this.Name = name;
         }
 
-        public override TResult Accept<TVisitor, TResult>()
+        public override TResult Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
         {
-            return TVisitor.VisitVariableExpr(this);
+            return visitor.VisitVariableExpr(this);
         }
 
         public readonly Token Name;

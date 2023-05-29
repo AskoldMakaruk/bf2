@@ -15,6 +15,8 @@ public enum TokenType
     STAR,
 
 // One or two character tokens.
+    COLON,
+    DOUBLE_COLON,
     SEMICOLON,
     DOUBLE_SEMICOLON,
     BANG,
@@ -34,6 +36,7 @@ public enum TokenType
 
 // Keywords.
     ADRESSEE,
+    ASSIGN,
     IS,
     AND,
     CLASS,
@@ -42,6 +45,7 @@ public enum TokenType
     FUN,
     FOR,
     IF,
+    THEN,
     NIL,
     OR,
     PRINT,
@@ -51,5 +55,6 @@ public enum TokenType
     TRUE,
     VAR,
     WHILE,
-    EOF
+    EOF,
+    PERCENT
 }
