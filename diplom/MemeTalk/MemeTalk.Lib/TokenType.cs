@@ -56,5 +56,11 @@ public enum TokenType
     VAR,
     WHILE,
     EOF,
-    PERCENT
+    PERCENT,
+    GRAPH,
+    PIXEL,
+    SIN,
+    LOAD,
+    SQRT,
+    ABS
 }

@@ -1,4 +1,5 @@
-﻿using MemeTalk.Lib.AST;
+﻿using Godot;
+using MemeTalk.Lib.AST;
 
 namespace MemeTalk.Lib;
 
@@ -73,7 +74,45 @@ public class Parser
             return ColonBlockStatement();
         }
 
+        if (Match(TokenType.GRAPH))
+        {
+            return GraphStatement();
+        }
+
+        if (Match(TokenType.PIXEL))
+        {
+            return PixelStatement();
+        }
+
         return ExpressionStatement();
+    }
+
+    private AstStatement PixelStatement()
+    {
+        var x = Expression();
+        var y = Expression();
+        var color = ColorExpression();
+        Consume(TokenType.DOT, "Expect '.' after pixel statement.");
+        return new AstStatement.Pixel(x, y, color);
+    }
+
+    private AstExpression ColorExpression()
+    {
+        if (Check(TokenType.STRING))
+        {
+            return new AstExpression.ColorStat(Expression());
+        }
+
+        return new AstExpression.ColorStat(Expression(), Expression(), Expression());
+    }
+
+    private AstStatement GraphStatement()
+    {
+        var token = Consume(TokenType.IDENTIFIER, "Expect input name.");
+        Consume(TokenType.COLON, "Expect ':' after input name.");
+        var input = Expression();
+        Consume(TokenType.DOT, "Expect '.' after input expression.");
+        return new AstStatement.Graph(token, input);
     }
 
     private AstStatement ExpressionStatement()
@@ -153,7 +192,7 @@ public class Parser
 
     private AstExpression Assignment()
     {
-        var expr = Or();
+        var expr = Sin();
 
         if (Match(TokenType.ASSIGN))
         {
@@ -170,6 +209,39 @@ public class Parser
         }
 
         return expr;
+    }
+
+    private AstExpression Sin()
+    {
+        if (Match(TokenType.SIN))
+        {
+            var value = Abs();
+            return new AstExpression.Sin(value);
+        }
+
+        return Abs();
+    }
+
+    private AstExpression Abs()
+    {
+        if (Match(TokenType.ABS))
+        {
+            var value = Expression();
+            return new AstExpression.Abs(value);
+        }
+
+        return Sqrt();
+    }
+
+    private AstExpression Sqrt()
+    {
+        if (Match(TokenType.SQRT))
+        {
+            var value = Expression();
+            return new AstExpression.Sqrt(value);
+        }
+
+        return Or();
     }
 
     private AstExpression Or()

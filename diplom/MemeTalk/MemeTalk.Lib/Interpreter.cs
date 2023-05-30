@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Globalization;
+using Godot;
 using MemeTalk.Lib.AST;
 
 namespace MemeTalk.Lib;
@@ -9,6 +10,9 @@ public class Interpreter : AstExpression.IExpressionVisitor<object>,
 {
     public Action<string> Print { get; set; } = Console.WriteLine;
     public Action<string> Error { get; set; } = Console.Error.WriteLine;
+    public Action<Func<double, double>> AddGraph { get; set; } = _ => { };
+    public Action<Vector2, Color> AddPixel { get; set; } = (_, _) => { };
+
     private Environment _environment = new Environment(null);
 
     public void Interpret(List<AstStatement> statements)
@@ -168,6 +172,7 @@ public class Interpreter : AstExpression.IExpressionVisitor<object>,
         return _environment.Get(expr.Name);
     }
 
+
     private object? Evaluate(AstExpression expr)
     {
         return expr.Accept<object>(this);
@@ -296,6 +301,77 @@ public class Interpreter : AstExpression.IExpressionVisitor<object>,
         }
 
         return null;
+    }
+
+    public object VisitGraphStatement(AstStatement.Graph stmt)
+    {
+        AddGraph(d =>
+        {
+            _environment.Define(stmt.Input.Lexeme, d);
+            return (double)Evaluate(stmt.Expression)!;
+        });
+
+        return null;
+    }
+
+    public object VisitPixelStatement(AstStatement.Pixel pixel)
+    {
+        var x = (int)(double)Evaluate(pixel.X);
+        var y = (int)(double)Evaluate(pixel.Y);
+        var parsedColor = (Color)Evaluate(pixel.Color)!;
+
+        AddPixel(new Vector2(x, y), parsedColor);
+        return null;
+    }
+
+    public object VisitColorStat(AstExpression.ColorStat colorStat)
+    {
+        Color parsedColor;
+        if (colorStat.Color != null)
+        {
+            var str = Evaluate(colorStat.Color);
+            parsedColor = (str as string) switch
+            {
+                "чорний" => Colors.Black,
+                "білий" => Colors.White,
+                "червоний" => Colors.Red,
+                "зелений" => Colors.Green,
+                "синій" => Colors.Blue,
+                "жовтий" => Colors.Yellow,
+                "рожевий" => Colors.Pink,
+                "оранжевий" => Colors.Orange,
+                "фіолетовий" => Colors.Purple,
+                "сірий" => Colors.Gray,
+                _ => Color.FromHtml(str as string)
+            };
+        }
+        else
+        {
+            var r = (byte)(double)Evaluate(colorStat.R);
+            var g = (byte)(double)Evaluate(colorStat.G);
+            var b = (byte)(double)Evaluate(colorStat.B);
+            parsedColor = Color.Color8(r, g, b);
+        }
+
+        return parsedColor;
+    }
+
+    public object VisitSinExpression(AstExpression.Sin sin)
+    {
+        var value = (double)Evaluate(sin.Value);
+        return Math.Sin(value);
+    }
+
+    public object VisitSqrtExpression(AstExpression.Sqrt sqrt)
+    {
+        var value = (double)Evaluate(sqrt.Value);
+        return Math.Sqrt(value);
+    }
+
+    public object VisitAbsExpression(AstExpression.Abs abs)
+    {
+        var value = (double)Evaluate(abs.Value);
+        return Math.Abs(value);
     }
 }
 

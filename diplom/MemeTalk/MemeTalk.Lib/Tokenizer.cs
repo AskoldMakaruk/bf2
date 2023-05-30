@@ -49,7 +49,13 @@ public class Tokenizer
         { "є", TokenType.ASSIGN },
         { "більше", TokenType.GREATER },
         { "менше", TokenType.LESS },
-        { "дорівнює", TokenType.EQUAL_EQUAL }
+        { "дорівнює", TokenType.EQUAL_EQUAL },
+        { "графік", TokenType.GRAPH },
+        { "піксель", TokenType.PIXEL },
+        { "сінус", TokenType.SIN },
+        { "завантажити", TokenType.LOAD },
+        { "корінь", TokenType.SQRT },
+        { "модуль", TokenType.ABS }
     };
 
     private readonly string _source;
@@ -68,7 +74,6 @@ public class Tokenizer
     {
         while (!IsAtEnd())
         {
-            // We are at the beginning of the next lexeme.
             _start = _current;
             ScanToken();
         }

@@ -18,6 +18,10 @@ public abstract class AstExpression
         TResult? VisitThisExpr(This expr);
         TResult? VisitUnaryExpr(Unary expr);
         TResult? VisitVariableExpr(Variable expr);
+        TResult VisitColorStat(ColorStat colorStat);
+        TResult VisitSinExpression(Sin sin);
+        TResult VisitSqrtExpression(Sqrt sqrt);
+        TResult VisitAbsExpression(Abs abs);
     }
 
     // Nested Expr classes here...
@@ -223,5 +227,75 @@ public abstract class AstExpression
         }
 
         public readonly Token Name;
+    }
+
+    public class ColorStat : AstExpression
+    {
+        public readonly AstExpression Color;
+        public readonly AstExpression R;
+        public readonly AstExpression G;
+        public readonly AstExpression B;
+
+        public ColorStat(AstExpression r, AstExpression g, AstExpression b)
+        {
+            R = r;
+            G = g;
+            B = b;
+        }
+
+        public ColorStat(AstExpression color)
+        {
+            Color = color;
+        }
+
+        public override TR Accept<TR>(IExpressionVisitor<TR> statementVisitor)
+        {
+            return statementVisitor.VisitColorStat(this);
+        }
+    }
+
+    public class Sin : AstExpression
+    {
+        public readonly AstExpression Value;
+
+        public Sin(AstExpression value)
+        {
+            Value = value;
+        }
+
+        public override TResult? Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
+        {
+            return visitor.VisitSinExpression(this);
+        }
+    }
+
+    public class Abs : AstExpression
+    {
+        public readonly AstExpression Value;
+
+        public Abs(AstExpression value)
+        {
+            Value = value;
+        }
+
+        public override TResult? Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
+        {
+            return visitor.VisitAbsExpression(this);
+        }
+    }
+
+    public class Sqrt : AstExpression
+    {
+        public readonly AstExpression Value;
+
+        public Sqrt(AstExpression value)
+        {
+            Value = value;
+        }
+
+        public override TResult? Accept<TResult>(IExpressionVisitor<TResult> visitor) where TResult : default
+        {
+            return visitor.VisitSqrtExpression(this);
+        }
     }
 }

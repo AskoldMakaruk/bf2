@@ -13,6 +13,8 @@ public abstract class AstStatement
         TResult VisitReturnStmt(Return stmt);
         TResult? VisitVarStmt(Var stmt);
         TResult VisitWhileStmt(While stmt);
+        TResult VisitGraphStatement(Graph stmt);
+        TResult VisitPixelStatement(Pixel pixel);
     }
 
     // Nested Stmt classes here...
@@ -64,6 +66,43 @@ public abstract class AstStatement
 
         public readonly AstExpression AstExpression;
     }
+
+    public class Graph : AstStatement
+    {
+        public Graph(Token input, AstExpression expression)
+        {
+            Input = input;
+            Expression = expression;
+        }
+
+        public readonly Token Input;
+        public readonly AstExpression Expression;
+
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
+        {
+            return statementVisitor.VisitGraphStatement(this);
+        }
+    }
+
+    public class Pixel : AstStatement
+    {
+        public readonly AstExpression X;
+        public readonly AstExpression Y;
+        public readonly AstExpression Color;
+
+        public Pixel(AstExpression x, AstExpression y, AstExpression color)
+        {
+            X = x;
+            Y = y;
+            Color = color;
+        }
+
+        public override TR Accept<TR>(IStatementVisitor<TR> statementVisitor)
+        {
+            return statementVisitor.VisitPixelStatement(this);
+        }
+    }
+
 
     public class Function : AstStatement
     {

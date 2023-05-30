@@ -20,6 +20,7 @@ public partial class EditorConsole : RichTextLabel
 
     public void Error(string text)
     {
-        AddText($"|> [color=red]{text}[/color]\n");
+        PushColor(Colors.Red);
+        AddText($"|> {text}[/color]\n");
     }
 }

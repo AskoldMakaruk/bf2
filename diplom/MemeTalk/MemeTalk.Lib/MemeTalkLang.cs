@@ -7,6 +7,7 @@ public class MemeTalkLang
     public static MemeTalkLang Instance { get; } = new();
 
     public readonly Interpreter Interpreter = new();
+    public string[] Source = Array.Empty<string>();
 
     public void RunFile(string path)
     {
@@ -42,6 +43,7 @@ public class MemeTalkLang
 
     public void Run(string source)
     {
+        this.Source = source.Split('\n');
         var scanner = new Tokenizer(source);
         var tokens = scanner.ScanTokens();
         var parser = new Parser(tokens.Tokens);
@@ -74,7 +76,13 @@ public class MemeTalkLang
 
     void Report(int line, string where, string message)
     {
-        Interpreter.Error("[line " + line + "] Error" + where + ": " + message);
+        var sourceLine = "";
+        if (Source.Length > 0 && line > Source.Length)
+        {
+            sourceLine = Source[line - 1];
+        }
+
+        Interpreter.Error($"[line {line}]{sourceLine}\nError: {where}: {message}");
         HadError = true;
     }
 
@@ -83,7 +91,14 @@ public class MemeTalkLang
 
     public void RuntimeError(RuntimeError runtimeError)
     {
-        Console.Error.WriteLine(runtimeError.Message + "\n[line " + runtimeError.Token?.Line + "]");
+        var line = runtimeError.Token?.Line ?? 0;
+        var sourceLine = "";
+        if (Source.Length > 0 && line > Source.Length)
+        {
+            sourceLine = Source[line - 1];
+        }
+
+        Interpreter.Error($"[line {line}]{sourceLine}\nError: {runtimeError.Message}");
         HadRuntimeError = true;
     }
 }

@@ -74,6 +74,26 @@ public class AstPrinter : AstExpression.IExpressionVisitor<string>
         throw new NotImplementedException();
     }
 
+    public string VisitColorStat(AstExpression.ColorStat colorStat)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string VisitSinExpression(AstExpression.Sin sin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string VisitSqrtExpression(AstExpression.Sqrt sqrt)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string VisitAbsExpression(AstExpression.Abs abs)
+    {
+        throw new NotImplementedException();
+    }
+
     private string Parenthesize(string name, params AstExpression[] exprs)
     {
         var builder = new StringBuilder();

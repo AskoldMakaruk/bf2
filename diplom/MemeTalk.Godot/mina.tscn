@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfqsmcdd3j82g"]
+[gd_scene load_steps=6 format=3 uid="uid://bfqsmcdd3j82g"]
 
 [ext_resource type="Script" path="res://Editor.cs" id="1_7vvam"]
 [ext_resource type="CodeHighlighter" uid="uid://bvfko1bsu33ry" path="res://code_highlight.tres" id="1_i4fjl"]
 [ext_resource type="PackedScene" uid="uid://cljwpln6hpjsx" path="res://editor_console.tscn" id="3_wgdot"]
+[ext_resource type="Script" path="res://OutputPanel.cs" id="4_rpuor"]
 [ext_resource type="FontFile" uid="uid://d1ivjfsa2b8dp" path="res://fonts/ttf/JetBrainsMono-Medium.ttf" id="4_usugr"]
 
 [node name="Control" type="Control"]
@@ -39,7 +40,7 @@ custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 split_offset = 700
 
-[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/MarginContainer/HSplitContainer" node_paths=PackedStringArray("Console", "ImagePanel")]
+[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/MarginContainer/HSplitContainer" node_paths=PackedStringArray("Console", "ImagePanel", "CodePagesContainer")]
 layout_mode = 2
 theme_override_colors/background_color = Color(0.117647, 0.129412, 0.152941, 1)
 theme_override_colors/completion_background_color = Color(1, 1, 1, 0.639216)
@@ -76,6 +77,7 @@ auto_brace_completion_highlight_matching = true
 script = ExtResource("1_7vvam")
 Console = NodePath("../PanelContainer/VSplitContainer/Console")
 ImagePanel = NodePath("../PanelContainer/VSplitContainer/Panel")
+CodePagesContainer = NodePath("../../../MarginContainer2/HBoxContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/HSplitContainer"]
 layout_mode = 2
@@ -86,6 +88,7 @@ split_offset = 300
 
 [node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer/HSplitContainer/PanelContainer/VSplitContainer"]
 layout_mode = 2
+script = ExtResource("4_rpuor")
 
 [node name="Console" parent="VBoxContainer/MarginContainer/HSplitContainer/PanelContainer/VSplitContainer" instance=ExtResource("3_wgdot")]
 layout_mode = 2
