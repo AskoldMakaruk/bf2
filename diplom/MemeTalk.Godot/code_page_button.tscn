@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dworm17jqngcc"]
+
+[ext_resource type="Script" path="res://CodePageButton.cs" id="1_sxuc1"]
+
+[node name="CodePageButton" type="Button"]
+script = ExtResource("1_sxuc1")
+
+[connection signal="pressed" from="." to="." method="Pressed"]
