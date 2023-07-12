@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffbae97b-aba5-4f0d-b3c7-2ebfb624b0de" name="Changes" comment="While loops">
+    <list default="true" id="ffbae97b-aba5-4f0d-b3c7-2ebfb624b0de" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MemeTalk.Godot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Editor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Editor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EditorConsole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EditorConsole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/mina.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstExpression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstExpression.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstPrinter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstPrinter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstStatement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/AST/AstStatement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Grammar.md" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Grammar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Interpreter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Interpreter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/MemeTalkLang.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/MemeTalkLang.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Parser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Parser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/TokenType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/TokenType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Tokenizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MemeTalk/MemeTalk.Lib/Tokenizer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +107,7 @@
       <workItem from="1684918604309" duration="1043000" />
       <workItem from="1684920508685" duration="7701000" />
       <workItem from="1685269420423" duration="30609000" />
-      <workItem from="1685446955705" duration="1588000" />
+      <workItem from="1685446955705" duration="4352000" />
     </task>
     <task id="LOCAL-00001" summary="While loops">
       <created>1685342600246</created>
@@ -128,7 +116,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685342600246</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="похуй">
+      <created>1685456629355</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1685456629355</updated>
+    </task>
+    <task id="LOCAL-00003" summary="+ поебать">
+      <created>1685456644154</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685456644154</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +143,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="While loops" />
-    <option name="LAST_COMMIT_MESSAGE" value="While loops" />
+    <MESSAGE value="похуй" />
+    <MESSAGE value="+ поебать" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ поебать" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
