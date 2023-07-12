@@ -3,7 +3,7 @@ namespace ChessLib.FigureClass;
 public class Rook : UniversalFigure
 {
     private readonly FigureColor _color;
-    public  string figurePictures => _color == FigureColor.White ? "♖" : "♜";
+    public string figurePictures => _color == FigureColor.White ? "♖" : "♜";
 
     public override Position[] DefaultPosition =>
         new Position[]
@@ -16,6 +16,7 @@ public class Rook : UniversalFigure
     {
         _color = color;
     }
+
     public override bool CanFigureMove(Turn turn, Board board, out Position[] optionPositions)
     {
         optionPositions = null;
@@ -27,10 +28,10 @@ public class Rook : UniversalFigure
         var optionMoves = new List<Position>();
         var column = (int)turn.First.Column;
         var row = (int)turn.First.Row;
-        var posToFig = board.positions
-            .FirstOrDefault(p=> 
-                p.position.Column == turn.First.Column 
-                && p.position.Row == turn.First.Row
+        var posToFig = board.Positions
+            .FirstOrDefault(p =>
+                p.Position.Column == turn.First.Column
+                && p.Position.Row == turn.First.Row
             );
         /*optionMoves.AddRange(Enumerable.Range(1, lengthFor - 1)
                 .Select(i =>
@@ -49,23 +50,27 @@ public class Rook : UniversalFigure
                 .TakeWhile(position => position != default)
                 .ToList()
         );*/
-        
+
         for (var i = 1; i < lengthFor; i++)
         {
             var cPos = column + i;
             var rPos = row + i;
-            var stop = board.positions.FirstOrDefault(p =>
-                p.position.Column == (Column)cPos && p.position.Row == (Row)rPos);
-            if (stop.figure != null && stop.figure.color != posToFig.figure.color)
+            var stop = board.Positions.FirstOrDefault(p =>
+                p.Position.Column == (Column)cPos && p.Position.Row == (Row)rPos);
+            if (stop != null && stop.color != posToFig.color)
             {
-                optionMoves.Add(new Position((Column)cPos,(Row)rPos));
+                optionMoves.Add(new Position((Column)cPos, (Row)rPos));
                 break;
             }
-            if (cPos > 7 || rPos > 7 || stop.figure != null && stop.figure.color == posToFig.figure.color)
+
+            if (cPos > 7 || rPos > 7 || stop != null && stop.color == posToFig.color)
             {
                 break;
             }
-            optionMoves.Add(new Position((Column)cPos,(Row)rPos));
+
+            optionMoves.Add(new Position((Column)cPos, (Row)rPos));
         }
+
+        return null;
     }
 }

@@ -1,18 +1,12 @@
-
 using ChessLib.FigureClass;
 
 namespace ChessLib;
 
 public class Board
 {
-    public List<PosToFigure>  positions;
+    public List<UniversalFigure> Positions = new();
 
     public Board()
     {
     }
-    
 }
-
-public record struct PosToFigure(Position position, UniversalFigure figure);
-
-
