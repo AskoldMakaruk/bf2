@@ -10,9 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ChessContext>(options => options
-        .UseNpgsql(builder.Configuration
-        .GetConnectionString("DefaultConnection")));
+        .UseNpgsql("Server=188.166.81.64;Database=ChessTest;Username=ilya;Password=123"));
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddSingleton<SessionService>();
+builder.Services.AddScoped<GameRepository>();
+builder.Services.AddScoped<LobbyRepository>();
 
 var app = builder.Build();
 
@@ -28,3 +30,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+// Readlist
+// mediator
+// maping
+// migrates

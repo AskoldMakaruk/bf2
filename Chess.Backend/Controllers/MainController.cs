@@ -34,7 +34,7 @@ public class MainController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync([FromBody] UserCreateView model)
     {
-        if (!await _userRepository.UserExists(model.Name))
+        if (await _userRepository.UserExists(model.Name))
         {
             return BadRequest("USER-ERROR");
         }
@@ -53,47 +53,85 @@ public class MainController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync([FromBody] UserCreateView model)
     {
-    // todo check password and login
-    // generate token
-    // save token to memory (concurrent dictionary<TokenGuid, UserId)
-    // todo return token
-        if (await _userRepository.LoginUser(model) is not {} user)
+        /*
+        todo check password and login
+        generate token
+        save token to memory (concurrent dictionary<TokenGuid, UserId)
+        todo return token
+        */
+        if (await _userRepository.LoginUser(model) is not { } user)
         {
             return BadRequest("USER-ERROR");
         }
-        
+
         var token = _sessionService.CreateSession(user.Id);
-    
+
         return Ok(token);
     }
-    
+
     //todo middleware
     // check HTTP header for token
     // if token exists, check if token is present in memory
     // if token is present in memory, add user id to request context (HttpContext.User add claim User id = id from memory) 
-    
-    
+
 
     [HttpPost("create-lobby")]
     public async Task<IActionResult> CreateLobbyAsync([FromBody] LobbyCreateView model)
     {
-        return Ok();
+        //  get user
+        var user = await GetUser();
+
+        //  check if user can create lobby   
+        var isInLobby = await _lobbyRepository.IsUserInLobbyAsync(user.Id);
+        if (isInLobby)
+        {
+            return BadRequest("User is already in lobby");
+        }
+
+        var lobby = await _lobbyRepository.CreateLobbyAsync(model, user);
+
+        //  add user to lobby
+        //  return lobby id
+        return Ok(lobby.Id);
     }
 
-    [HttpPost("join-game")]
-    public async Task<IActionResult> JoinGameAsync([FromBody] GameCreateView model)
+    async Task<User> GetUser()
     {
-        return Ok();
+        var userId = (Guid?)HttpContext.Items["user-id"] ?? throw new Exception("User id not found");
+        var user = await _userRepository.GetUser(userId) ?? throw new Exception("User id not found in Db");
+        return user;
     }
-    
-    
-    
+
+    [HttpPost("join-lobby")]
+    public async Task<IActionResult> JoinLobbyAsync([FromBody] LobbyJoinView model)
+    {
+        //check if lobby not contains 2 users
+        var isLobbyFull = await _lobbyRepository.IsLobbyFilledAsync(model.Id);
+        if (isLobbyFull)
+            return BadRequest("Lobby is full");
+        var lobby = await _lobbyRepository.GetLobbyAsync(model.Id) ?? throw new Exception("Lobby not found");
+
+        var user = await GetUser();
+        lobby.Opponent = user;
+
+        var game = await _gameRepository.StartGameAsync(lobby);
+        // todo start game
+        // todo return game id and color
+        // ?????
+        return Ok(new {
+            GameId = game.Id,
+            Color = game.PlayerWhite.Id == user.Id ? "white" : "black"
+        });
+    }
+
+// dotnet ef migrations add InitialCreate 
+// dotnet ef database update 
+// dotnet tool install --global dotnet-ef
     [HttpGet("lobby-list")]
     public async Task<LobbyListView> GetGameListAsync()
     {
         // var list = await _lobbyRepository.GetLobbyListAsync();
-        // return list;
-        return default;
+        return null;
     }
 
     [HttpGet("game-status")]
@@ -101,7 +139,6 @@ public class MainController : ControllerBase
     {
         return Ok();
     }
-
 }
 
 //todo

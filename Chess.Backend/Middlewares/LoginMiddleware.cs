@@ -20,7 +20,7 @@ public class LoginMiddleware
         if(Guid.TryParse(token, out var guid)){
             var userId =  _sessionService.GetUserId(guid);
             if(userId != null){
-                context.Items["user-id"] =  userId.ToString();
+                context.Items["user-id"] =  userId;
             }
         }
         await _next(context);

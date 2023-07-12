@@ -10,6 +10,10 @@ public class ChessContext : DbContext
     public DbSet<Game> Games { get; set; }
     
     
+    public ChessContext(DbContextOptions<ChessContext> options) : base(options)
+    {
+    }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(builder =>
@@ -24,5 +28,6 @@ public class ChessContext : DbContext
         {
             builder.HasKey(g => g.Id);
         });
+        
     }
 }
