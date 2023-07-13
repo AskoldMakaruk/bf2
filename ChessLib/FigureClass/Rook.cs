@@ -2,19 +2,18 @@ namespace ChessLib.FigureClass;
 
 public class Rook : UniversalFigure
 {
-    private readonly FigureColor _color;
-    public string figurePictures => _color == FigureColor.White ? "♖" : "♜";
+    public string figurePictures => Color == FigureColor.White ? "♖" : "♜";
 
     public override Position[] DefaultPosition =>
         new Position[]
         {
-            new Position(_color == FigureColor.White ? (Column.A, Row.One) : (Column.A, Row.Eight)),
-            new Position(_color == FigureColor.White ? (Column.H, Row.One) : (Column.H, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.A, Row.One) : (Column.A, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.H, Row.One) : (Column.H, Row.Eight)),
         };
 
-    public Rook(FigureColor color)
+    public Rook(FigureColor color, Position position) : base(color, position)
     {
-        _color = color;
+    
     }
 
     public override bool CanFigureMove(Turn turn, Board board, out Position[] optionPositions)

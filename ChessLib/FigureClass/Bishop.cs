@@ -2,20 +2,17 @@ namespace ChessLib.FigureClass;
 
 public class Bishop : UniversalFigure
 {
-    private readonly FigureColor _color;
-    public string figurePictures => _color == FigureColor.White ? "♗" : "♝";
+    public string figurePictures => Color == FigureColor.White ? "♗" : "♝";
 
     public override Position[] DefaultPosition =>
         new Position[]
         {
-            new Position(_color == FigureColor.White ? (Column.C, Row.One) : (Column.C, Row.Eight)),
-            new Position(_color == FigureColor.White ? (Column.F, Row.One) : (Column.F, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.C, Row.One) : (Column.C, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.F, Row.One) : (Column.F, Row.Eight)),
         };
 
-    public Bishop(FigureColor color, Position position)
+    public Bishop(FigureColor color, Position position) : base(color, position)
     {
-        _color = color;
-        Position = position;
     }
 
     public override bool CanFigureMove(Turn turn, Board board, out Position[] optionPositions)

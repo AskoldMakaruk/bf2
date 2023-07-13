@@ -2,11 +2,18 @@ namespace ChessLib;
 
 public abstract class UniversalFigure
 {
-    public FigureColor color;
+    public FigureColor Color;
+    
     public virtual string figurePictures { get; }
     public abstract Position[] DefaultPosition { get; }
     public abstract bool CanFigureMove(Turn turn, Board board, out Position[] optionPositions);
     public Position Position { get; set; }
+    protected UniversalFigure(FigureColor color, Position position)
+    {
+        Color = color;
+        Position = position;
+    }
+
 
     public void Move(Turn turn, Board board)
     {
@@ -39,13 +46,13 @@ public abstract class UniversalFigure
                 var rPos = (int)Position.Row + i * vector.Y;
                 var stop = board.Positions.FirstOrDefault(p =>
                     p.Position.Column == (Column)cPos && p.Position.Row == (Row)rPos);
-                if (stop != null && stop.color != color)
+                if (stop != null && stop.Color != Color)
                 {
                     optionMoves.Add(new Position((Column)cPos, (Row)rPos));
                     break;
                 }
 
-                if (cPos > 7 || rPos > 7 || cPos < 0 || rPos < 0 || (stop != null && stop.color == color))
+                if (cPos > 7 || rPos > 7 || cPos < 0 || rPos < 0 || (stop != null && stop.Color == Color))
                 {
                     break;
                 }

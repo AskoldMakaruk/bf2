@@ -2,17 +2,16 @@ namespace ChessLib.FigureClass;
 
 public class King : UniversalFigure
 {
-    private readonly FigureColor _color;
-    public string figurePictures => _color == FigureColor.White ? "♔" : "♚";
+    public string figurePictures => Color == FigureColor.White ? "♔" : "♚";
     public override Position[] DefaultPosition =>
         new Position[]
         {
-            new Position(_color == FigureColor.White ? (Column.D, Row.One) : (Column.D, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.D, Row.One) : (Column.D, Row.Eight)),
         };
 
-    public King(FigureColor color)
+    public King(FigureColor color, Position position) : base(color, position)
     {
-        _color = color;
+    
     }
     public override bool CanFigureMove(Turn turn, Board board, out Position[] optionPositions)
     {
