@@ -6,7 +6,8 @@ public class Knight : UniversalFigure
     public override Position[] DefaultPosition =>
         new Position[]
         {
-            new Position(Color == FigureColor.White ? (Column.D, Row.One) : (Column.D, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.B, Row.One) : (Column.B, Row.Eight)),
+            new Position(Color == FigureColor.White ? (Column.G, Row.One) : (Column.G, Row.Eight))
         };
 
     public Knight(FigureColor color, Position position) : base(color, position)
