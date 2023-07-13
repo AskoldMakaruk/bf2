@@ -20,11 +20,11 @@ public class Bishop : UniversalFigure
 
     public override bool CanFigureMove(Turn turn, Board board, out Position[] optionPositions)
     {
-        optionPositions = DiagonalOptionMoves(board);
+        optionPositions = CastVector(board,7 , new Vector(1, 1), new Vector(1,-1), new Vector(-1,1), new Vector(-1,-1));
         return optionPositions.Contains(turn.Second);
     }
-
-    public Position[] DiagonalOptionMoves(Board board, int lengthFor = 8)
+}
+/*     public Position[] DiagonalOptionMoves(Board board, int lengthFor = 8)
     {
         var optionMoves = new List<Position>();
         var column = (int)Position.Column;
@@ -112,4 +112,4 @@ public class Bishop : UniversalFigure
 
         return optionMoves.ToArray();
     }
-}
+*/
